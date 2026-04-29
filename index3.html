@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <link rel="icon" type="image/x-icon" href="img-vedimaq/V-img.vedimac(1).png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicio Técnico — Vedimaq</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mantenimiento.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="img-vedimaq/Vedimaq.logo-original.png" alt="Vedimaq Logo">
+                </a>
+            </div>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="index2.html">Maquinarias</a></li>
+                <li><a href="index.html#nosotros">Quiénes somos</a></li>
+                <li><a href="index.html#contacto">Contacto</a></li>
+                <li><a href="index1.html">Publica tu máquina</a></li>
+            </ul>
+
+            <div class="header-actions">
+                <div class="search-container" id="searchContainer">
+                    <input type="text" class="search-input" id="searchInput" placeholder="Buscar maquinaria...">
+                    <button type="button" class="search-icon-btn" id="searchIconBtn"><i
+                            class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="maint-main">
+        <section class="maint-hero">
+            <div class="container maint-hero">
+                <!-- Left: Content -->
+                <div class="maint-hero-content">
+                    <h1>
+                        <span class="accent">Solicitud</span>
+                        <span class="main-title">de Mantenimiento</span>
+                    </h1>
+                    <p class="description">Optimice el tiempo operativo de sus equipos. Complete este formulario técnico
+                        y un ingeniero de soporte asignado se pondrá en contacto en menos de 2 horas.</p>
+
+                    <div class="maint-guarantee-wrapper">
+                        <div class="maint-line-inline"></div>
+                        <p class="maint-guarantee">GARANTÍA DE RESPUESTA TÉCNICA INMEDIATA</p>
+                    </div>
+
+                    <div class="maint-stats-box">
+                        <div class="stat-item">
+                            <h3>24/7</h3>
+                            <p>Soporte en terreno</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>99%</h3>
+                            <p>Uptime garantizado</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Form -->
+                <div class="maint-hero-form-wrapper">
+                    <div class="maint-form-card">
+                        <form id="maintForm">
+                            <div class="maint-form-group">
+                                <label>Nombre de contacto</label>
+                                <input type="text" placeholder="Ej: Juan Pérez" required>
+                            </div>
+                            <div class="maint-form-group">
+                                <label>RUT</label>
+                                <input type="text" placeholder="12.345.678-9" required>
+                            </div>
+                            <div class="maint-form-group">
+                                <label>Modelo de maquinaria</label>
+                                <input type="text" placeholder="Ej: Excavadora CX-450" required>
+                            </div>
+                            <div class="maint-form-group">
+                                <label>Mensaje o descripción del problema</label>
+                                <textarea rows="4"
+                                    placeholder="Describa brevemente la falla técnica o el tipo de mantenimiento requerido..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn-maint-submit">
+                                ENVIAR MENSAJE <i class="fa-solid fa-paper-plane"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="maint-features">
+            <div class="container">
+                <div class="maint-features-grid">
+                    <div class="maint-feature-item">
+                        <div class="maint-feature-icon">
+                            <i class="fa-solid fa-user-gear"></i>
+                        </div>
+                        <h3>Diagnóstico Preciso</h3>
+                        <p>Utilizamos herramientas de telemetría avanzada para identificar fallas antes de que ocurran,
+                            reduciendo costos operativos.</p>
+                    </div>
+                    <div class="maint-feature-item">
+                        <div class="maint-feature-icon">
+                            <i class="fa-solid fa-box-open"></i>
+                        </div>
+                        <h3>Repuestos Originales</h3>
+                        <p>Stock garantizado de componentes críticos para todas nuestras líneas de maquinaria industrial
+                            pesada.</p>
+                    </div>
+                    <div class="maint-feature-item">
+                        <div class="maint-feature-icon">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <h3>Normas de Seguridad</h3>
+                        <p>Todo nuestro personal cuenta con certificaciones internacionales de seguridad y salud en el
+                            trabajo.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <img src="img-vedimaq/vedimaq.logo-original.png" alt="Vedimaq Logo" class="footer-logo">
+                <p>Especialistas en la venta y arriendo de maquinaria pesada para todo tipo de proyectos industriales y
+                    de construcción en Chile.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-links-container">
+                <div class="footer-column">
+                    <h4>CATEGORÍAS</h4>
+                    <ul>
+                        <li><a href="#">Excavadoras</a></li>
+                        <li><a href="#">Retroexcavadoras</a></li>
+                        <li><a href="#">Cargadores Frontales</a></li>
+                        <li><a href="#">Tractores de ruedas</a></li>
+                        <li><a href="#">Motoniveladoras</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>COMPAÑÍA</h4>
+                    <ul>
+                        <li><a href="index3.html">Sobre Nosotros</a></li>
+                        <li><a href="index3.html">Servicio Técnico</a></li>
+                        <li><a href="#">Casos de Éxito</a></li>
+                        <li><a href="#">Términos y Condiciones</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column contact-column">
+                    <h4>CONTACTO</h4>
+                    <ul>
+                        <li><i class="fa-solid fa-location-dot"></i> Avenida Principal 1234,<br>Concón, Valparaíso,
+                            Chile</li>
+                        <li><i class="fa-solid fa-phone"></i> +56 9 9827 2162</li>
+                        <li><i class="fa-solid fa-envelope"></i> contacto@vedimaq.cl</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Vedimaq SpA. Todos los derechos reservados.</p>
+            <p>Hecho en Chile - RUT 77.858.999-0</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

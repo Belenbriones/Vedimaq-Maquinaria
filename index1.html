@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <link rel="icon" type="image/x-icon" href="img-vedimaq/V-img.vedimac(1).png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vedimaq — Maquinarias de alto rendimiento</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style1.css">
+    <link rel="stylesheet" href="quote-drawer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="img-vedimaq/Vedimaq.logo-original.png" alt="Vedimaq Logo">
+                </a>
+            </div>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="index2.html">Maquinarias</a></li>
+                <li><a href="index.html#nosotros">Quiénes somos</a></li>
+                <li><a href="index.html#contacto">Contacto</a></li>
+                <li><a href="index1.html">Publica tu máquina</a></li>
+            </ul>
+
+            <div class="header-actions">
+                <div class="search-container" id="searchContainer">
+                    <input type="text" class="search-input" id="searchInput" placeholder="Buscar maquinaria...">
+                    <button type="button" class="search-icon-btn" id="searchIconBtn"><i
+                            class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- PUBLISH FLOW MAIN -->
+    <main class="publish-flow-main">
+        <div class="container pb-container">
+            <div class="vender-main-title">
+                <h1>Vende tu maquinaria con nosotros</h1>
+            </div>
+
+            <!-- STEPS INDICATOR (RESTRUCTURED) -->
+            <div class="pb-stepper-container">
+                <div class="pb-step-item active" id="pbStepTab1" onclick="showPbStep(1)">
+                    <div class="step-icon-circle"><i class="fa-solid fa-user-plus"></i></div>
+                    <div class="step-info">
+                        <h4>1. Regístrate</h4>
+                        <p class="step-desc">Crea tu cuenta de vendedor con tus datos básicos.</p>
+                    </div>
+                </div>
+                <div class="pb-step-line-v2" id="pbStepLine1"></div>
+                <div class="pb-step-item" id="pbStepTab2" onclick="showPbStep(2)">
+                    <div class="step-icon-circle"><i class="fa-solid fa-camera"></i></div>
+                    <div class="step-info">
+                        <h4>2. Sube fotos</h4>
+                        <p class="step-desc">Captura los mejores ángulos de tu equipo.</p>
+                    </div>
+                </div>
+                <div class="pb-step-line-v2" id="pbStepLine2"></div>
+                <div class="pb-step-item" id="pbStepTab3" onclick="showPbStep(3)">
+                    <div class="step-icon-circle"><i class="fa-solid fa-handshake"></i></div>
+                    <div class="step-info">
+                        <h4>3. Solicitud</h4>
+                        <p class="step-desc">Conecta con compradores y cierra la venta.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTENT STEP 1: DETALLES -->
+            <div id="pbStep1" class="pb-content-step active">
+                <div class="pb-card pb-step-card-v2">
+                    <div class="pb-card-header-dark">
+                        <h3>Información del vendedor</h3>
+                        <p>Completa la información básica para comenzar con tu publicación.</p>
+                    </div>
+                    <div class="pb-card-body">
+                        <!-- Vendedor Info -->
+                        <div class="pb-form-row">
+                            <div class="pb-form-group">
+                                <label>Nombre completo</label>
+                                <input type="text" placeholder="Belen García">
+                            </div>
+                            <div class="pb-form-group">
+                                <label>Rut</label>
+                                <input type="text" placeholder="12.345.678-9">
+                            </div>
+                        </div>
+                        <div class="pb-form-row">
+                            <div class="pb-form-group">
+                                <label>Correo electrónico</label>
+                                <input type="email" placeholder="b.garcia@vendedor.cl">
+                            </div>
+                            <div class="pb-form-group">
+                                <label>Teléfono de Contacto</label>
+                                <input type="tel" placeholder="+569...">
+                            </div>
+                        </div>
+
+                        <!-- Section Divider -->
+                        <div class="pb-section-title">
+                            <span>Especificaciones técnicas</span>
+                            <div class="pb-title-line"></div>
+                        </div>
+
+                        <!-- Especificaciones -->
+                        <div class="pb-form-row">
+                            <div class="pb-form-group">
+                                <label>Categoría</label>
+                                <select class="pb-select">
+                                    <option value="" disabled selected>Selecciona una categoría</option>
+                                    <option value="excavadora">Excavadora</option>
+                                    <option value="retroexcavadora">Retroexcavadora</option>
+                                    <option value="bulldozer">Bulldozer</option>
+                                </select>
+                            </div>
+                            <div class="pb-form-group">
+                                <label>Marca</label>
+                                <input type="text" placeholder="Ej. Caterpillar, Komatsu">
+                            </div>
+                        </div>
+                        <div class="pb-form-row">
+                            <div class="pb-form-group">
+                                <label>Modelo</label>
+                                <input type="text" placeholder="Ej. 320D, PC200">
+                            </div>
+                            <div class="pb-form-group">
+                                <label>Año</label>
+                                <select class="pb-select">
+                                    <option value="" disabled selected>Año de fabricación</option>
+                                    <option value="2024">2024</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2020">2020</option>
+                                    <option value="2019">2019</option>
+                                    <option value="2018">2018</option>
+                                    <option value="2017">2017</option>
+                                    <option value="2016">2016</option>
+                                    <option value="2015">2015</option>
+                                    <option value="2014">2014</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Condición -->
+                        <div class="pb-form-group">
+                            <label>Condición del equipo</label>
+                            <div class="condition-selector-v2">
+                                <label class="condition-option-v2">
+                                    <input type="radio" name="condition" value="nuevo">
+                                    <span class="condition-box-v2"><span class="radio-circle"></span> Nuevo</span>
+                                </label>
+                                <label class="condition-option-v2">
+                                    <input type="radio" name="condition" value="excelente">
+                                    <span class="condition-box-v2"><span class="radio-circle"></span> Usado -
+                                        Excelente</span>
+                                </label>
+                                <label class="condition-option-v2">
+                                    <input type="radio" name="condition" value="regular">
+                                    <span class="condition-box-v2"><span class="radio-circle"></span> Usado -
+                                        Regular</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <button class="btn-yellow-full mt-4" onclick="showPbStep(2)">Continuar al siguiente paso <i
+                                class="fa-solid fa-arrow-right"></i></button>
+                        <p class="terms-text" style="font-size: 0.7rem; color: #888;">Al continuar, aceptas nuestros
+                            términos de servicio y políticas de privacidad.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTENT STEP 2 -->
+            <div id="pbStep2" class="pb-content-step" style="display: none;">
+                <div class="pb-row">
+                    <!-- Left Column -->
+                    <div class="pb-col-left">
+                        <div class="pb-card pb-white-card">
+                            <div class="pb-card-header-clean">
+                                <i class="fa-solid fa-location-dot"
+                                    style="color: var(--yellow); margin-right: 10px;"></i>
+                                <b>Detalles Técnicos y Ubicación</b>
+                            </div>
+                            <div class="pb-form-row">
+                                <div class="pb-form-group">
+                                    <label>Horas de uso / Km</label>
+                                    <div class="pb-input-with-suffix">
+                                        <input type="number" placeholder="Ej: 5200">
+                                        <span class="suffix">HRS</span>
+                                    </div>
+                                </div>
+                                <div class="pb-form-group">
+                                    <label>Ubicación actual</label>
+                                    <div class="pb-input-with-icon">
+                                        <i class="fa-solid fa-location-dot"></i>
+                                        <input type="text" placeholder="Ciudad, Región">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pb-form-group">
+                                <label>Accesorios </label>
+                                <textarea rows="3"
+                                    placeholder="Describa cucharas, martillos, terceras funciones, etc."></textarea>
+                            </div>
+                            <div class="pb-alert">
+                                <i class="fa-solid fa-circle-info"></i>
+                                <p>Incluir detalles como el historial de mantenimiento aumenta un 30% las posibilidades
+                                    de venta.</p>
+                            </div>
+                        </div>
+
+                        <div class="pb-card pb-white-card">
+                            <div class="pb-card-header-clean">
+                                <i class="fa-solid fa-image" style="color: var(--yellow); margin-right: 10px;"></i>
+                                <b>Fotos y Multimedia</b>
+                            </div>
+                            <div class="pb-dragger">
+                                <div class="dragger-icon">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                                </div>
+                                <h4>Arrastra tus fotos aquí</h4>
+                                <p>Formatos soportados: JPG, PNG. Mínimo 4 fotos<br>(frente, perfiles, cabina, motor).
+                                </p>
+                                <button class="btn-dragger">Seleccionar archivos</button>
+                            </div>
+
+                            <div class="pb-gallery">
+                                <div class="pb-gallery-item">
+                                    <img src="img-vedimaq/grid-bg.png" alt="foto">
+                                    <div class="badge-principal">PRINCIPAL</div>
+                                </div>
+                                <div class="pb-gallery-item empty">
+                                    <i class="fa-solid fa-plus"></i>
+                                </div>
+                                <div class="pb-gallery-item empty">
+                                    <i class="fa-solid fa-plus"></i>
+                                </div>
+                                <div class="pb-gallery-item empty">
+                                    <i class="fa-solid fa-plus"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="pb-col-right">
+                        <div class="pb-summary-card">
+                            <h3>Resumen de publicación</h3>
+                            <div class="pb-summary-item">
+                                <span class="label">PRECIO VENTA</span>
+                                <div class="val-row">
+                                    <input type="text" class="input-lg" value="$ 0">
+                                    <i class="fa-solid fa-pencil pencil-icon" style="color: #fbc02d;"></i>
+                                </div>
+                                <span class="help-text">El precio final será validado por nuestro equipo
+                                    comercial.</span>
+                            </div>
+
+                            <div class="pb-summary-item mt-4">
+                                <div class="pb-map-box">
+                                    <span class="label">MAPA DE UBICACIÓN</span>
+                                    <div class="map-placeholder">
+                                        <img src="img-vedimaq/grid-bg.png" alt="map">
+                                        <i class="fa-solid fa-location-dot map-pin"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pb-summary-item mt-4">
+                                <div class="pb-garantia-box">
+                                    <i class="fa-solid fa-shield-check"></i>
+                                    <div>
+                                        <h4>Garantía Vedimaq</h4>
+                                        <p>Todas las publicaciones pasan por un filtro técnico antes de ser activadas.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-4">
+                                <button class="btn-yellow-full" onclick="showPbStep(3)">Publicar maquinaria <i
+                                        class="fa-solid fa-check"></i></button>
+                                <button class="btn-ghost-full mt-2" onclick="showPbStep(1)">Regresar al paso
+                                    anterior</button>
+                                <div class="text-center mt-3">
+                                    <a href="#" class="link-cancel">Guardar borrador y salir</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTENT STEP 3 -->
+            <div id="pbStep3" class="pb-content-step" style="display: none;">
+                <div class="pb-success-box">
+                    <div class="success-icon-large">
+                        <i class="fa-regular fa-circle-check"></i>
+                    </div>
+                    <h2>¡Solicitud Recibida!</h2>
+                    <p class="desc">Gracias por confiar en Vedimaq. Tu maquinaria entrará en un proceso de
+                        revisión<br>técnica por nuestros expertos. Te contactaremos en un plazo máximo de
+                        <strong>48<br>horas</strong> para validar los datos y publicar tu equipo en nuestro marketplace.
+                    </p>
+
+                    <div class="pb-success-card">
+                        <div class="card-header">
+                            <i class="fa-regular fa-file-lines"></i> Resumen de la Maquinaria
+                        </div>
+                        <div class="card-body">
+                            <img src="img-vedimaq/grid-bg.png" alt="Maquina" class="card-img">
+                            <div class="card-details">
+                                <div class="detail-grid">
+                                    <div>
+                                        <span class="label">VENDEDOR</span>
+                                        <span class="val">Belén García</span>
+                                    </div>
+                                    <div>
+                                        <span class="label">RUT</span>
+                                        <span class="val">12.345.678-9</span>
+                                    </div>
+                                    <div>
+                                        <span class="label">CORREO</span>
+                                        <span class="val">b.garcia@vendedor.cl</span>
+                                    </div>
+                                    <div>
+                                        <span class="label">UBICACIÓN</span>
+                                        <span class="val">Concón, Valparaíso, Chile</span>
+                                    </div>
+                                    <div>
+                                        <span class="label">EQUIPO</span>
+                                        <span class="val">Excavadora Caterpillar 320D</span>
+                                    </div>
+                                    <div>
+                                        <span class="label">ID SOLICITUD</span>
+                                        <span class="val">#VMQ-892341</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="badge-revision">PENDIENTE DE REVISIÓN</span>
+                            <span class="date-est"><i class="fa-regular fa-clock"></i> Publicación estimada: Miércoles
+                                14 de Junio</span>
+                        </div>
+                    </div>
+
+                    <div class="success-actions">
+                        <button class="btn-yellow" onclick="window.location.href='index.html'">Volver al Inicio</button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <!-- QUOTE DRAWER (SIDEBAR MODAL) -->
+    <div class="quote-drawer-overlay" id="quoteOverlay"></div>
+    <div class="quote-drawer" id="quoteDrawer">
+        <div class="drawer-header">
+            <h3 id="modalTitle">COTIZACIÓN · PASO 1/3</h3>
+            <button class="close-drawer" id="closeDrawer"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+
+        <!-- STEPS HEADER -->
+        <div class="modal-steps">
+            <div class="step-item active" id="stepIndicator1">
+                <span class="step-num">1</span> 1. DATOS
+            </div>
+            <div class="step-item" id="stepIndicator2">
+                <span class="step-num">2</span> 2. REVISAR
+            </div>
+            <div class="step-item" id="stepIndicator3">
+                <span class="step-num">3</span> 3. ENVIADO
+            </div>
+        </div>
+
+        <div class="drawer-body">
+            <!-- STEP 1: DATOS -->
+            <div id="step1Content" class="step-content active">
+                <div class="modal-row">
+                    <!-- Left: Form -->
+                    <div class="modal-col-left">
+                        <!-- TABS / SWITCH -->
+                        <div class="drawer-tabs">
+                            <button type="button" class="drawer-tab active" id="tabCompra">Quiero Comprar</button>
+                            <button type="button" class="drawer-tab" id="tabArriendo">Quiero Arrendar</button>
+                        </div>
+
+                        <form id="quoteForm">
+                            <input type="hidden" id="formType" value="compra">
+
+                            <div class="form-group">
+                                <label>Nombre o Empresa *</label>
+                                <input type="text" id="inNombre" placeholder="Ej: Juan Pérez / Constructora SpA"
+                                    required>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>RUT *</label>
+                                    <input type="text" id="inRut" placeholder="12.345.678-9" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Email *</label>
+                                    <input type="email" id="inEmail" placeholder="correo@empresa.cl" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Teléfono de contacto *</label>
+                                <input type="tel" id="inTel" placeholder="+56 9 1234 5678" required>
+                            </div>
+
+                            <!-- ARRIENDO EXTRA FIELDS -->
+                            <div id="arriendoFields" class="arriendo-extra-fields" style="display: none;">
+                                <div class="form-group">
+                                    <label>Ubicación del Proyecto *</label>
+                                    <input type="text" id="inUbicacion" placeholder="Región / Comuna / Faena">
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Fecha de Inicio *</label>
+                                        <input type="date" id="inFechaIni">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Fecha de Término *</label>
+                                        <input type="date" id="inFechaFin">
+                                    </div>
+                                </div>
+
+                                <div class="duration-badge" id="durationBadge">
+                                    <i class="fa-solid fa-clock"></i> Duración total: Selecciona fechas
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Mensaje adicional</label>
+                                <textarea id="inMensaje" rows="3"
+                                    placeholder="Cuéntanos más sobre tus necesidades: tipo de faena, operador requerido..."></textarea>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Right: Summary Card -->
+                    <div class="modal-col-right">
+                        <div class="summary-card">
+                            <div class="s-label">RESUMEN</div>
+                            <div class="s-img">
+                                <img id="sImage" src="img-vedimaq/grid-bg.png" alt="Máquina">
+                            </div>
+                            <div class="s-cat" id="dCategory">Categoría</div>
+                            <h4 id="dProductName">Nombre del Equipo</h4>
+                            <div class="s-badge" id="sServiceType">SERVICIO: COMPRA</div>
+
+                            <hr class="s-divider">
+
+                            <div class="s-label">PRECIO REFERENCIAL</div>
+                            <div class="s-price" id="dProductPrice">Consultar</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="drawer-footer">
+                    <button type="button" class="btn-cancel" id="btnCancelDrawer">Cancelar</button>
+                    <button type="button" class="btn-submit-drawer" id="btnNextStep">Continuar <i
+                            class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- STEP 2: REVISAR -->
+            <div id="step2Content" class="step-content" style="display: none;">
+                <div class="modal-row">
+                    <!-- Left: User Data -->
+                    <div class="modal-col-left">
+                        <h3 class="step-title">Resumen de Solicitud</h3>
+                        <p class="step-desc">Por favor, revise los detalles de su solicitud antes de enviarla.</p>
+
+                        <div class="review-box">
+                            <h4 class="rb-title"><i class="fa-solid fa-circle-check" style="color: var(--yellow)"></i>
+                                Información del Solicitante</h4>
+
+                            <div class="rb-grid">
+                                <div>
+                                    <span class="rb-label">NOMBRE COMPLETO</span>
+                                    <div class="rb-value" id="rNombre">---</div>
+                                </div>
+                                <div>
+                                    <span class="rb-label">CORREO ELECTRÓNICO</span>
+                                    <div class="rb-value" id="rEmail">---</div>
+                                </div>
+                                <div>
+                                    <span class="rb-label">RUT</span>
+                                    <div class="rb-value" id="rRut">---</div>
+                                </div>
+                                <div>
+                                    <span class="rb-label">TELÉFONO</span>
+                                    <div class="rb-value" id="rTel">---</div>
+                                </div>
+                            </div>
+
+                            <div id="rArriendoBox" class="rb-arriendo-box" style="display: none;">
+                                <span class="rb-label">UBICACIÓN DEL PROYECTO</span>
+                                <div class="rb-value" id="rUbicacion">---</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Cost Summary -->
+                    <div class="modal-col-right">
+                        <div class="cost-card">
+                            <div class="cc-label">RESUMEN DE COSTOS</div>
+
+                            <div class="cc-row" style="margin-top: 15px;">
+                                <span>SUBTOTAL EQUIPO</span>
+                                <span class="cc-val" id="cSubtotal">$0</span>
+                            </div>
+                            <div class="cc-row">
+                                <span class="cc-iva">IVA (19%)</span>
+                                <span class="cc-iva" id="cIva">$0</span>
+                            </div>
+
+                            <hr class="cc-divider">
+
+                            <div class="cc-total-label">TOTAL ESTIMADO</div>
+                            <div class="cc-total-val" id="cTotal">$0</div>
+                            <div class="cc-iva-included">+ IVA Incluido</div>
+
+                            <button type="button" class="btn-submit-final" id="btnSubmitFinal">
+                                Enviar Solicitud <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+
+                            <button type="button" class="btn-pdf-ghost">
+                                <i class="fa-solid fa-download"></i> DESCARGAR PDF
+                            </button>
+
+                            <p class="cc-disclaimer">Al enviar esta solicitud, nuestro equipo técnico se contactará en
+                                un plazo máximo de 2 horas hábiles.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="drawer-footer centered">
+                    <button type="button" class="btn-link" id="btnPrevStep"><i class="fa-solid fa-arrow-left"></i>
+                        Editar datos</button>
+                </div>
+            </div>
+
+            <!-- STEP 3: ENVIADO -->
+            <div id="step3Content" class="step-content text-center" style="display: none; padding: 40px 20px;">
+                <div class="success-icon">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <h2 class="success-title">¡Cotización enviada correctamente a tu correo!</h2>
+                <p class="success-desc">Hemos enviado una copia con el PDF adjunto a <b id="sEmail">tu correo</b>.
+                    Nuestro equipo técnico te contactará en menos de 2 horas hábiles.</p>
+                <p class="success-folio" id="sFolio">Folio #VM-000000</p>
+
+                <div class="success-actions">
+                    <button type="button" class="btn-pdf-outline"><i class="fa-solid fa-download"></i> Descargar
+                        PDF</button>
+                    <button type="button" class="btn-submit-final" id="btnFinishModal">Ver más maquinaria</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <img src="img-vedimaq/vedimaq.logo-original.png" alt="Vedimaq Logo" class="footer-logo">
+                <p>Especialistas en la venta y arriendo de maquinaria pesada para todo tipo de proyectos industriales y
+                    de construcción en Chile.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-links-container">
+                <div class="footer-column">
+                    <h4>CATEGORÍAS</h4>
+                    <ul>
+                        <li><a href="#">Construcción</a></li>
+                        <li><a href="#">Mineria</a></li>
+                        <li><a href="#">Portuario</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>COMPAÑÍA</h4>
+                    <ul>
+                        <li><a href="#">Sobre Nosotros</a></li>
+                        <li><a href="index3.html">Servicio Técnico</a></li>
+                        <li><a href="#">Casos de Éxito</a></li>
+                        <li><a href="#">Términos y Condiciones</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column contact-column">
+                    <h4>CONTACTO</h4>
+                    <ul>
+                        <li><i class="fa-solid fa-location-dot"></i> Avenida Principal 1234,<br>Concón, Valparaíso,
+                            Chile</li>
+                        <li><i class="fa-solid fa-phone"></i> +56 9 9827 2162</li>
+                        <li><i class="fa-solid fa-envelope"></i> contacto@vedimaq.cl</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Vedimaq SpA. Todos los derechos reservados.</p>
+            <p>Hecho en Chile - RUT 77.858.999-0</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

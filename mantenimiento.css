@@ -1,0 +1,245 @@
+/* ==========================================================================
+   MANTENIMIENTO.CSS - SERVICIO TÉCNICO VEDIMAQ
+   ========================================================================== */
+
+.maint-main {
+    background-color: #f8f9fa; /* White smoke / Light grey */
+    padding-top: 100px; /* Space for fixed header */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 5%;
+}
+
+/* HERO SECTION */
+.maint-hero {
+    padding: 40px 0 80px;
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    flex-wrap: wrap;
+}
+
+.maint-hero-content {
+    flex: 1;
+    min-width: 300px;
+}
+
+.maint-hero-content h1 {
+    font-size: 3.5rem;
+    line-height: 1.1;
+    margin-bottom: 25px;
+    font-weight: 800;
+}
+
+.maint-hero-content h1 span.accent {
+    color: #FBBF24; /* Brand yellow */
+    display: block;
+}
+
+.maint-hero-content h1 span.main-title {
+    color: #0B0F1A;
+    display: block;
+}
+
+.maint-hero-content p.description {
+    font-size: 1.1rem;
+    color: #444;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    max-width: 500px;
+}
+
+.maint-guarantee-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.maint-line-inline {
+    width: 40px;
+    height: 3px;
+    background-color: var(--yellow);
+    border-radius: 2px;
+}
+
+.maint-guarantee {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #777;
+    letter-spacing: 0.5px;
+    margin-bottom: 0;
+}
+
+.maint-stats-box {
+    background-color: #e5e5e5;
+    border-radius: 12px;
+    padding: 25px 35px;
+    display: flex;
+    gap: 40px;
+    max-width: 480px;
+}
+
+.stat-item h3 {
+    font-size: 1.8rem;
+    color: #12151B;
+    margin-bottom: 5px;
+}
+
+.stat-item p {
+    font-size: 0.75rem;
+    color: #444;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+/* FORM CARD */
+.maint-hero-form-wrapper {
+    flex: 1;
+    min-width: 350px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.maint-form-card {
+    background-color: var(--white);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 480px;
+}
+
+.maint-form-group {
+    margin-bottom: 20px;
+}
+
+.maint-form-group label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #888;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.maint-form-group input,
+.maint-form-group textarea {
+    width: 100%;
+    padding: 15px;
+    background-color: #f4f4f4;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: all 0.3s;
+}
+
+.maint-form-group input:focus,
+.maint-form-group textarea:focus {
+    outline: none;
+    background-color: #fff;
+    border-color: var(--yellow);
+    box-shadow: 0 5px 15px rgba(251, 191, 36, 0.1);
+}
+
+.btn-maint-submit {
+    width: 100%;
+    background-color: var(--yellow);
+    color: var(--dark);
+    border: none;
+    padding: 18px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 800;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    transition: all 0.3s;
+    margin-top: 10px;
+}
+
+.btn-maint-submit:hover {
+    background-color: #e5a913;
+    transform: translateY(-2px);
+}
+
+/* FEATURES SECTION */
+.maint-features {
+    background-color: var(--white);
+    padding: 80px 0;
+}
+
+.maint-features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+}
+
+.maint-feature-item {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.maint-feature-icon {
+    width: 50px;
+    height: 50px;
+    background-color: #0B0F1A;
+    color: var(--yellow);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.4rem;
+}
+
+.maint-feature-item h3 {
+    font-size: 1.3rem;
+    color: #12151B;
+}
+
+.maint-feature-item p {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
+    .maint-hero {
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
+    }
+
+    .maint-hero-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .maint-hero-form-wrapper {
+        justify-content: center;
+    }
+
+    .maint-stats-box {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .maint-features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .maint-hero-content h1 {
+        font-size: 2.5rem;
+    }
+}
