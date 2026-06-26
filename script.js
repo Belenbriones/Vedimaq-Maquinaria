@@ -485,17 +485,55 @@ document.addEventListener('DOMContentLoaded', () => {
         maintForm.addEventListener('submit', (e) => {
             e.preventDefault();
             
+            // Recopilar datos del formulario
+            const inputs = maintForm.querySelectorAll('input, select');
+            const tipoText = inputs[0].options[inputs[0].selectedIndex].text;
+            const marca = inputs[1].value;
+            const modelo = inputs[2].value;
+            const fecha = inputs[3].value;
+            const hora = inputs[4].value;
+            const lugarText = inputs[5].options[inputs[5].selectedIndex].text;
+            
             // Simular envío
             const submitBtn = maintForm.querySelector('.btn-maint-submit');
             const originalContent = submitBtn.innerHTML;
             
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> ENVIANDO...';
+            submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> ENVIANDO CORREO...';
             
             setTimeout(() => {
+                // Guardar datos en sesión para el dashboard
+                const maintData = {
+                    tipo: tipoText,
+                    marca: marca,
+                    modelo: modelo,
+                    fecha: fecha,
+                    hora: hora,
+                    lugar: lugarText,
+                    estado: 'Pendiente'
+                };
+                localStorage.setItem('vedimaq_maint_data', JSON.stringify(maintData));
                 localStorage.setItem('vedimaq_has_maint', 'true');
-                alert('¡Solicitud de mantenimiento enviada con éxito! Un especialista se contactará con usted en menos de 2 horas.');
-                window.location.href = 'dashboard.html';
+                
+                // Mostrar mensaje en consola simulando envío de correo
+                console.log(`[SIMULACIÓN] Correo enviado al usuario con los detalles:\nServicio: ${tipoText}\nEquipo: ${marca} ${modelo}\nAgendado para: ${fecha} a las ${hora}\nLugar: ${lugarText}`);
+                
+                // Ocultar form y mostrar éxito
+                maintForm.style.display = 'none';
+                const infoList = document.getElementById('maint-info-list');
+                if(infoList) infoList.style.display = 'none';
+                
+                const successScreen = document.getElementById('maint-success-screen');
+                if (successScreen) {
+                    successScreen.style.display = 'block';
+                    
+                    // Configurar botón WhatsApp
+                    const mensajeWa = `Hola Vedimaq, he solicitado un mantenimiento. Detalles:%0A- Tipo: ${tipoText}%0A- Equipo: ${marca} ${modelo}%0A- Fecha: ${fecha} a las ${hora}%0A- Lugar: ${lugarText}`;
+                    const waBtn = document.getElementById('maint-whatsapp-btn');
+                    if (waBtn) {
+                        waBtn.href = `https://wa.me/56998272162?text=${mensajeWa}`;
+                    }
+                }
             }, 1500);
         });
     }

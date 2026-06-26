@@ -82,9 +82,9 @@
                                 <label>Tipo de mantenimiento</label>
                                 <select required style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; font-family: inherit; font-size: 0.9rem;">
                                     <option value="" disabled selected>Seleccione tipo</option>
-                                    <option value="preventivo">Preventivo</option>
-                                    <option value="correctivo">Correctivo</option>
-                                    <option value="inspeccion">Inspección General</option>
+                                    <option value="diario_basico">Mantenimiento Diario - Básico</option>
+                                    <option value="diario_full">Mantenimiento Diario - Full</option>
+                                    <option value="predictivo">Mantenimiento Predictivo</option>
                                 </select>
                             </div>
                             <div class="maint-form-group" style="display: flex; gap: 10px;">
@@ -115,10 +115,20 @@
                                     <option value="taller">En Taller Vedimaq</option>
                                 </select>
                             </div>
-                            <button type="submit" class="btn-maint-submit">
+                            <button type="submit" class="btn-maint-submit" style="font-weight: 500; font-family: 'Inter', sans-serif; border-radius: 8px; display: flex; align-items: center; justify-content: center; gap: 8px;">
                                 ENVIAR MENSAJE <i class="fa-solid fa-paper-plane"></i>
                             </button>
                         </form>
+                        
+                        <!-- Pantalla de éxito (oculta inicialmente) -->
+                        <div id="maint-success-screen" style="display: none; text-align: center; padding: 20px 0;">
+                            <i class="fa-regular fa-circle-check" style="font-size: 3rem; color: #10b981; margin-bottom: 15px;"></i>
+                            <h3 style="color: #1f2937; margin-bottom: 10px;">¡Solicitud enviada con éxito!</h3>
+                            <p style="color: #4b5563; font-size: 0.9rem; margin-bottom: 20px;">Le hemos enviado un correo con el resumen de la agenda. Si necesita atención más rápida, contáctenos por WhatsApp.</p>
+                            <a id="maint-whatsapp-btn" href="#" target="_blank" style="display: inline-block; background-color: #25D366; color: white; text-decoration: none; padding: 10px 20px; border-radius: 5px; font-weight: 500; font-family: 'Inter', sans-serif;"><i class="fa-brands fa-whatsapp"></i> Contactar por WhatsApp</a>
+                            <br><br>
+                            <a href="dashboard.html" style="color: #3b82f6; text-decoration: underline; font-size: 0.9rem;">Ir a Mi Perfil (Dashboard)</a>
+                        </div>
                     </div>
                 </div>
             </div>

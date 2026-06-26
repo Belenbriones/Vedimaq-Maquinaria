@@ -98,6 +98,19 @@
                 </div>
             </div>
 
+            
+            <div id="maint-status-container" style="display: none; margin-bottom: 20px; padding: 15px; background-color: #fff; border: 1px solid #e5e7eb; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e5e7eb; padding-bottom: 10px; margin-bottom: 10px;">
+                    <h3 style="font-size: 1.1rem; color: #1f2937;"><i class="fa-solid fa-wrench" style="color: var(--yellow);"></i> Solicitud de Mantenimiento Activa</h3>
+                    <span id="maint-status-badge" style="background-color: #fef3c7; color: #d97706; padding: 4px 8px; border-radius: 9999px; font-size: 0.8rem; font-weight: 600;">Pendiente</span>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; font-size: 0.9rem; color: #4b5563;">
+                    <div><strong>Servicio:</strong> <span id="maint-dash-tipo"></span></div>
+                    <div><strong>Equipo:</strong> <span id="maint-dash-equipo"></span></div>
+                    <div><strong>Fecha:</strong> <span id="maint-dash-fecha"></span> a las <span id="maint-dash-hora"></span></div>
+                    <div><strong>Lugar:</strong> <span id="maint-dash-lugar"></span></div>
+                </div>
+            </div>
             <div class="mq-grid">
                 <!-- Card 1 -->
                 <div class="mq-card">
@@ -293,6 +306,22 @@
             }
             if (userEmail) {
                 document.getElementById('dashEmailVal').innerText = userEmail;
+            }
+            
+            // Load maintenance data
+            const maintDataStr = localStorage.getItem('vedimaq_maint_data');
+            if (maintDataStr) {
+                try {
+                    const maintData = JSON.parse(maintDataStr);
+                    document.getElementById('maint-status-container').style.display = 'block';
+                    document.getElementById('maint-dash-tipo').innerText = maintData.tipo;
+                    document.getElementById('maint-dash-equipo').innerText = `${maintData.marca} ${maintData.modelo}`;
+                    document.getElementById('maint-dash-fecha').innerText = maintData.fecha;
+                    document.getElementById('maint-dash-hora').innerText = maintData.hora;
+                    document.getElementById('maint-dash-lugar').innerText = maintData.lugar;
+                } catch(e) {
+                    console.error('Error parsing maintenance data', e);
+                }
             }
         });
     </script>
