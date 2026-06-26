@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vedimaq — Maquinarias de alto rendimiento</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style1.css">
     <link rel="stylesheet" href="quote-drawer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -22,10 +23,11 @@
             </div>
 
             <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Inicio</a></li>
                 <li><a href="index2.html">Maquinarias</a></li>
                 <li><a href="index3.html">Mantenimiento</a></li>
-                <li><a href="#nosotros">Quiénes somos</a></li>
-                <li><a href="#contacto">Contacto</a></li>
+                <li><a href="index.html#nosotros">Quiénes somos</a></li>
+                <li><a href="index.html#contacto">Contacto</a></li>
                 <li><a href="login.html">Publica tu máquina</a></li>
             </ul>
 
@@ -45,405 +47,267 @@
         </nav>
     </header>
 
-    <main>
-        <section class="hero">
-            <div class="hero-main">
-                <div class="hero-content">
-                    <span class="badge"><i class="fa-solid fa-bolt" style="color: var(--yellow);"></i> RESPUESTA EN < 30
-                            MIN</span>
-                            <h1>Maquinarias de alto <span>rendimiento</span></h1>
-                            <p>Encuentra la maquinaria pesada que tu proyecto necesita.</p>
-                            
-                            <div class="hero-actions-wrapper">
-                                <a href="index2.html" class="btn-primary">Ver maquinaria <i class="fa-solid fa-arrow-right"></i></a>
-                                
-                                <div class="hero-quick-actions">
-                                    <a href="login.html" class="quick-action-btn"><i class="fa-solid fa-tag"></i> Vender</a>
-                                    <a href="index2.html?transaccion=compra" class="quick-action-btn"><i class="fa-solid fa-cart-shopping"></i> Comprar</a>
-                                    <a href="index2.html?transaccion=arriendo" class="quick-action-btn"><i class="fa-regular fa-calendar"></i> Arrendar</a>
-                                    <a href="index3.html" class="quick-action-btn"><i class="fa-solid fa-wrench"></i> Mantenimiento</a>
+    <!-- PUBLISH FLOW MAIN -->
+    <!-- PUBLISH FLOW MAIN -->
+    <main class="publish-flow-main" style="background-color: #f6f6f6; min-height: calc(100vh - 200px); padding: 120px 0 60px 0;">
+        <div class="container pb-container">
+            
+            <!-- STEPS INDICATOR -->
+            <div class="vender-main-title" id="pbMainTitle" style="display: block;">
+                <h1>Publica tu maquinaria</h1>
+            </div>
+            <div class="pb-stepper-container" id="pbStepper" style="display: flex;">
+                <div class="pb-step-item active" id="pbStepTab1" onclick="showPbStep(1)">
+                    <div class="step-icon-circle"><i class="fa-solid fa-list-check"></i></div>
+                    <div class="step-info">
+                        <h4>1. Especificaciones</h4>
+                        <p class="step-desc">Datos técnicos de tu equipo.</p>
+                    </div>
+                </div>
+                <div class="pb-step-line-v2" id="pbStepLine1"></div>
+                <div class="pb-step-item" id="pbStepTab2" onclick="showPbStep(2)">
+                    <div class="step-icon-circle"><i class="fa-solid fa-camera"></i></div>
+                    <div class="step-info">
+                        <h4>2. Imágenes y Ubicación</h4>
+                        <p class="step-desc">Fotos, horómetro y ubicación.</p>
+                    </div>
+                </div>
+                <div class="pb-step-line-v2" id="pbStepLine2"></div>
+                <div class="pb-step-item" id="pbStepTab3" onclick="showPbStep(3)">
+                    <div class="step-icon-circle"><i class="fa-solid fa-handshake"></i></div>
+                    <div class="step-info">
+                        <h4>3. Solicitud</h4>
+                        <p class="step-desc">Revisión de publicación.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTENT STEP 1: ESPECIFICACIONES -->
+            <div id="pbStep1" class="pb-content-step active">
+                <div class="pb-row">
+                    <div class="pb-col-left" style="flex: 1; max-width: 800px; margin: 0 auto;">
+                        <div class="pb-card pb-white-card">
+                            <div class="pb-card-header-clean">
+                                <i class="fa-solid fa-gear" style="color: var(--yellow); margin-right: 10px;"></i>
+                                <b>Especificaciones Técnicas</b>
+                            </div>
+                            <div class="pb-form-row">
+                                <div class="pb-form-group">
+                                    <label>Categoría</label>
+                                    <select style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; font-family: inherit; font-size: 0.9rem;">
+                                        <option value="excavadora">Excavadora</option>
+                                        <option value="cargador">Cargador Frontal</option>
+                                        <option value="retroexcavadora">Retroexcavadora</option>
+                                    </select>
+                                </div>
+                                <div class="pb-form-group">
+                                    <label>Marca</label>
+                                    <input type="text" placeholder="Ej: Caterpillar">
                                 </div>
                             </div>
-                </div>
-
-                <div class="hero-image">
-                    <div class="glow-circle"></div>
-                    <img src="img-vedimaq/maquinaria-dibujo.png" alt="Maquinaria Vedimaq" class="hero-machinery">
-                </div>
-            </div>
-        </section>
-
-        <section id="categorias" class="categorias-section section-padding">
-            <div class="categorias-header">
-                <h2>NUESTRAS <span>CATEGORÍAS</span></h2>
-                <p>Equipos especializados para los pilares de la economía industrial.</p>
-            </div>
-
-            <div class="categorias-grid">
-                <!-- Construcción -->
-                <a href="index2.html?filtro=construccion" class="cat-link-wrapper">
-                    <div class="categoria-card">
-                        <div class="cat-card-header">
-                            <div class="cat-icon-wrapper">
-                                <div class="cat-line"></div>
-                                <i class="fa-solid fa-hammer"></i>
+                            <div class="pb-form-row">
+                                <div class="pb-form-group">
+                                    <label>Modelo</label>
+                                    <input type="text" placeholder="Ej: 320D">
+                                </div>
+                                <div class="pb-form-group">
+                                    <label>Año de Fabricación</label>
+                                    <input type="number" placeholder="Ej: 2018">
+                                </div>
                             </div>
-                            <span class="cat-number">01</span>
-                        </div>
-                        <div class="cat-card-body">
-                            <h3>CONSTRUCCIÓN</h3>
-                            <ul class="cat-list">
-                                <li><i class="fa-solid fa-chevron-right"></i> Excavadoras</li>
-                                <li><i class="fa-solid fa-chevron-right"></i> Retroexcavadoras</li>
-                                <li><i class="fa-solid fa-chevron-right"></i> Tractores</li>
-                            </ul>
-                        </div>
-                        <div class="cat-card-footer">
-                            <span class="cat-disponibles">124 equipos disponibles</span>
-                            <span class="cat-link">VER CATÁLOGO <i class="fa-solid fa-arrow-right"></i></span>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Minería -->
-                <a href="index2.html?filtro=mineria" class="cat-link-wrapper">
-                    <div class="categoria-card">
-                        <div class="cat-card-header">
-                            <div class="cat-icon-wrapper">
-                                <div class="cat-line"></div>
-                                <img src="img-vedimaq/Vector.svg" alt="Minería" class="cat-svg-icon">
+                            <div class="pb-form-group">
+                                <label>Descripción breve</label>
+                                <textarea rows="3" placeholder="Describe el estado general y detalles importantes..."></textarea>
                             </div>
-                            <span class="cat-number">02</span>
-                        </div>
-                        <div class="cat-card-body">
-                            <h3>MINERÍA</h3>
-                            <ul class="cat-list">
-                                <li><i class="fa-solid fa-chevron-right"></i> Excavadoras pesadas</li>
-                                <li><i class="fa-solid fa-chevron-right"></i> Camiones mineros</li>
-                                <li><i class="fa-solid fa-chevron-right"></i> Cargadores pesados</li>
-                            </ul>
-                        </div>
-                        <div class="cat-card-footer">
-                            <span class="cat-disponibles">78 equipos disponibles</span>
-                            <span class="cat-link">VER CATÁLOGO <i class="fa-solid fa-arrow-right"></i></span>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Portuario -->
-                <a href="index2.html?filtro=portuario" class="cat-link-wrapper">
-                    <div class="categoria-card">
-                        <div class="cat-card-header">
-                            <div class="cat-icon-wrapper">
-                                <div class="cat-line"></div>
-                                <img src="img-vedimaq/Icon (4).svg" alt="Portuario" class="cat-svg-icon">
+                            
+                            <div class="mt-4" style="text-align: right;">
+                                <button class="btn-yellow-full" style="width: auto; padding: 15px 40px;" onclick="showPbStep(2)">Siguiente Paso <i class="fa-solid fa-arrow-right"></i></button>
                             </div>
-                            <span class="cat-number">03</span>
-                        </div>
-                        <div class="cat-card-body">
-                            <h3>PORTUARIO</h3>
-                            <ul class="cat-list">
-                                <li><i class="fa-solid fa-chevron-right"></i> Reach stackers</li>
-                                <li><i class="fa-solid fa-chevron-right"></i> Grúas horquilla</li>
-                                <li><i class="fa-solid fa-chevron-right"></i> Manipuladores de material</li>
-                            </ul>
-                        </div>
-                        <div class="cat-card-footer">
-                            <span class="cat-disponibles">42 equipos disponibles</span>
-                            <span class="cat-link">VER CATÁLOGO <i class="fa-solid fa-arrow-right"></i></span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </section>
-
-        <section id="contacto" class="contacto-section section-padding">
-            <div class="contacto-container">
-                <div class="contacto-info">
-                    <div class="contacto-header">
-                        <span class="contacto-label">| CONTÁCTANOS</span>
-                        <h2>Hablemos de tu próximo proyecto</h2>
-                        <p>Nuestro equipo técnico responde en menos de 30 minutos. Te asesoramos sobre el equipo
-                            adecuado, condiciones de arriendo y disponibilidad.</p>
-                    </div>
-
-                    <div class="contacto-lista">
-                        <div class="contacto-item">
-                            <div class="contacto-icon">
-                                <i class="fa-solid fa-phone"></i>
-                            </div>
-                            <div class="contacto-text">
-                                <span>TELÉFONO</span>
-                                <p>+56 9 9827 2162</p>
-                            </div>
-                        </div>
-                        <div class="contacto-item">
-                            <div class="contacto-icon">
-                                <i class="fa-solid fa-envelope"></i>
-                            </div>
-                            <div class="contacto-text">
-                                <span>CORREO</span>
-                                <p>contacto@vedimaq.cl</p>
-                            </div>
-                        </div>
-                        <div class="contacto-item">
-                            <div class="contacto-icon">
-                                <i class="fa-solid fa-location-dot"></i>
-                            </div>
-                            <div class="contacto-text">
-                                <span>UBICACIÓN</span>
-                                <p>Concón, Valparaíso</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="contacto-form-wrapper">
-                    <h3>Envíanos un mensaje</h3>
-                    <form class="contacto-form">
-                        <div class="form-group">
-                            <input type="text" placeholder="Ej. Juan Pérez">
-                        </div>
-                        <div class="form-group">
-                            <input type="email" placeholder="correo@empresa.cl">
-                        </div>
-                        <div class="form-group">
-                            <input type="tel" placeholder="+56 9 ...">
-                        </div>
-                        <div class="form-group">
-                            <textarea placeholder="¿Qué maquinaria buscas?"></textarea>
-                        </div>
-                        <button type="submit" class="btn-submit">Enviar Mensaje</button>
-                    </form>
-                </div>
-            </div>
-        </section>
-
-        <!-- CONÓCENOS SECTION -->
-        <section id="nosotros" class="nosotros-section section-padding">
-            <div class="nosotros-header">
-                <span class="nosotros-label">CONÓCENOS</span>
-                <h2>Desde la Región <span>de Valparaíso </span>para todo el país</h2>
-                <p>Vedimaq nace de la trayectoria de una familia dedicada a la maquinaria pesada. Especialistas en
-                    venta, arriendo y mantención de equipos industriales con estándares de seriedad, atención
-                    personalizada y respaldo técnico garantizado.</p>
-            </div>
-
-            <div class="nosotros-cards">
-                <div class="nosotros-card">
-                    <div class="n-card-icon">
-                        <i class="fa-solid fa-shield-halved"></i>
-                    </div>
-                    <h4>Confianza</h4>
-                    <p>Contratos claros, maquinaria certificada y proceso transparente de principio a fin.</p>
-                </div>
-                <div class="nosotros-card">
-                    <div class="n-card-icon">
-                        <i class="fa-solid fa-bolt"></i>
-                    </div>
-                    <h4>Rapidez de entrega</h4>
-                    <p>Despacho ágil a cualquier región de Chile. Coordinación logística en menos de 48 horas.</p>
-                </div>
-                <div class="nosotros-card">
-                    <div class="n-card-icon">
-                        <i class="fa-solid fa-wrench"></i>
-                    </div>
-                    <h4>Soporte técnico</h4>
-                    <p>Equipo de ingeniería con experiencia en minería, puerto y construcción. Respuesta técnica 24/7.
-                    </p>
-                </div>
-            </div>
-
-            <div class="nosotros-banner">
-                <div class="n-banner-logo">
-                    <span>VM</span>
-                </div>
-                <div class="n-banner-content">
-                    <h5>EL FACTOR HUMANO</h5>
-                    <p>Empresa liderada por expertos con trayectoria de tres décadas en el rubro. Atención directa del
-                        dueño — sin intermediarios ni call centers. Te conocemos por tu nombre y entendemos tu faena.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- STATS & TESTIMONIOS SECTION -->
-        <section class="stats-testimonios-section section-padding section-dark">
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <h3>+820</h3>
-                    <p>CLIENTES ATENDIDOS</p>
-                </div>
-                <div class="stat-divider"></div>
-                <div class="stat-item">
-                    <h3>+1.400</h3>
-                    <p>EQUIPOS PUBLICADOS</p>
-                </div>
-                <div class="stat-divider"></div>
-                <div class="stat-item">
-                    <h3>
-                        < 30 min</h3>
-                            <p>TIEMPO DE RESPUESTA</p>
-                </div>
-                <div class="stat-divider"></div>
-                <div class="stat-item">
-                    <h3>3</h3>
-                    <p>SECTORES INDUSTRIALES</p>
-                </div>
-            </div>
-
-            <div class="testimonios-grid">
-                <div class="testimonio-card">
-                    <div class="test-stars">
-                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                            class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                            class="fa-solid fa-star"></i>
-                    </div>
-                    <p class="test-quote">"La velocidad de respuesta es lo mejor. Cotizamos un cargador frontal un
-                        martes, lo teníamos operando el viernes."</p>
-                    <div class="test-author">
-                        <h4>Rodrigo Valenzuela</h4>
-                        <span>Jefe de Equipos - Constructora Ferrocem</span>
-                    </div>
-                </div>
-                <div class="testimonio-card">
-                    <div class="test-stars">
-                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                            class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                            class="fa-solid fa-star"></i>
-                    </div>
-                    <p class="test-quote">"Equipos certificados con historial documentado. Vedimaq se alinea con
-                        nuestros estándares de flota."</p>
-                    <div class="test-author">
-                        <h4>Catalina Ruiz</h4>
-                        <span>Compras - Minera Collahuasi</span>
-                    </div>
-                </div>
-                <div class="testimonio-card">
-                    <div class="test-stars">
-                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                            class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                            class="fa-solid fa-star"></i>
-                    </div>
-                    <p class="test-quote">"El reach stacker arrendado nos cubrió un peak de operación sin una sola
-                        detención. Servicio técnico 24/7 real."</p>
-                    <div class="test-author">
-                        <h4>Puerto Central</h4>
-                        <span>Operación logística - San Antonio</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="maquinarias" class="productos-section section-padding">
-            <div class="productos-header">
-                <div class="p-header-text">
-                    <h2>MEJORES <span>PRODUCTOS</span></h2>
-                    <p>Nuestra selección de equipos destacados por potencia y eficiencia.</p>
-                </div>
-                <a href="index2.html" class="p-link-todos">Ver todos los equipos <i
-                        class="fa-solid fa-arrow-right"></i></a>
-            </div>
-
-            <div class="product-grid">
-                <div class="product-card">
-                    <div class="product-img" style="background-color: #f3f4f6;">
-                        <span class="badge-top-left" style="background-color: var(--yellow); color: var(--dark); padding: 4px 10px; border-radius: 4px;">COMPRA</span>
-                        <div class="img-placeholder grid-bg">
-                            <i class="fa-solid fa-tractor tractor-icon"></i>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <div class="p-info-header" style="margin-bottom: 5px;">
-                            <span class="rc-category">RETROEXCAVADORAS</span>
-                            <span class="badge-status yellow-bg">NUEVO</span>
-                        </div>
-                        <h3 style="margin-bottom: 20px; font-size: 1.3rem;">Komatsu PC210LC-11</h3>
-
-                        <div class="rc-specs" style="margin-bottom: 20px;">
-                            <span><i class="fa-solid fa-gear"></i> 330 HP</span>
-                            <span><i class="fa-solid fa-weight-hanging"></i> 22.0 Ton</span>
-                            <span><i class="fa-solid fa-location-dot"></i> RM</span>
-                            <span><i class="fa-solid fa-clock"></i> Nueva</span>
-                        </div>
-
-                        <div class="rc-price-section" style="padding-top: 15px;">
-                            <div class="p-price">
-                                <span class="price-label">PRECIO DESDE</span>
-                                <span class="price-main" style="font-size: 1.4rem;">UF 1.250</span>
-                            </div>
-                            <button class="btn-cotizar-small" onclick="document.getElementById('quoteOverlay').style.display='block'; document.getElementById('quoteDrawer').classList.add('open');">Cotizar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="product-card">
-                    <div class="product-img" style="background-color: #f3f4f6;">
-                        <span class="badge-top-left" style="background-color: var(--dark); color: var(--yellow); padding: 4px 10px; border-radius: 4px;">ARRIENDO</span>
-                        <span class="badge-top-right white-bg">USADO</span>
-                        <div class="img-placeholder grid-bg">
-                            <i class="fa-solid fa-truck-monster tractor-icon"></i>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <div class="p-info-header" style="margin-bottom: 5px;">
-                            <span class="rc-category">CARGADORES</span>
-                        </div>
-                        <h3 style="margin-bottom: 20px; font-size: 1.3rem;">Caterpillar 950GC</h3>
-
-                        <div class="rc-specs" style="margin-bottom: 20px;">
-                            <span><i class="fa-solid fa-gear"></i> 304 HP</span>
-                            <span><i class="fa-solid fa-weight-hanging"></i> 18.5 Ton</span>
-                            <span><i class="fa-solid fa-location-dot"></i> II Región</span>
-                            <span><i class="fa-solid fa-clock"></i> 3.240 hrs</span>
-                        </div>
-
-                        <div class="rc-price-section" style="padding-top: 15px;">
-                            <div class="p-price">
-                                <span class="price-label">ARRIENDO DESDE</span>
-                                <span class="price-main" style="font-size: 1.4rem;">UF 890</span>
-                            </div>
-                            <button class="btn-cotizar-small" onclick="document.getElementById('quoteOverlay').style.display='block'; document.getElementById('quoteDrawer').classList.add('open');">Cotizar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="product-card">
-                    <div class="product-img" style="background-color: #f3f4f6;">
-                        <span class="badge-top-left" style="background-color: var(--yellow); color: var(--dark); padding: 4px 10px; border-radius: 4px;">COMPRA</span>
-                        <span class="badge-top-right dark-bg">CERTIFICADO</span>
-                        <div class="img-placeholder grid-bg">
-                            <i class="fa-solid fa-truck tractor-icon"></i>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <div class="p-info-header" style="margin-bottom: 5px;">
-                            <span class="rc-category">CAMIONES</span>
-                        </div>
-                        <h3 style="margin-bottom: 20px; font-size: 1.3rem;">Volvo A60H</h3>
-
-                        <div class="rc-specs" style="margin-bottom: 20px;">
-                            <span><i class="fa-solid fa-gear"></i> 630 HP</span>
-                            <span><i class="fa-solid fa-weight-hanging"></i> 55.0 Ton</span>
-                            <span><i class="fa-solid fa-location-dot"></i> Antofagasta</span>
-                            <span><i class="fa-solid fa-clock"></i> 1.200 hrs</span>
-                        </div>
-
-                        <div class="rc-price-section" style="padding-top: 15px;">
-                            <div class="p-price">
-                                <span class="price-label">PRECIO DESDE</span>
-                                <span class="price-main" style="font-size: 1.4rem;">UF 2.100</span>
-                            </div>
-                            <button class="btn-cotizar-small" onclick="document.getElementById('quoteOverlay').style.display='block'; document.getElementById('quoteDrawer').classList.add('open');">Cotizar</button>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+
+            <!-- CONTENT STEP 2 -->
+            <div id="pbStep2" class="pb-content-step" style="display: none;">
+                <div class="pb-row">
+                    <!-- Left Column -->
+                    <div class="pb-col-left">
+                        <div class="pb-card pb-white-card">
+                            <div class="pb-card-header-clean">
+                                <i class="fa-solid fa-location-dot" style="color: var(--yellow); margin-right: 10px;"></i>
+                                <b>Ubicación y Horómetro</b>
+                            </div>
+                            <div class="pb-form-row">
+                                <div class="pb-form-group">
+                                    <label>Ubicación actual de la máquina</label>
+                                    <div class="pb-input-with-icon">
+                                        <i class="fa-solid fa-location-dot"></i>
+                                        <input type="text" placeholder="Ciudad, Región o Dirección exacta">
+                                    </div>
+                                </div>
+                                <div class="pb-form-group">
+                                    <label>Horómetro actual (Horas)</label>
+                                    <div class="pb-input-with-suffix">
+                                        <input type="number" placeholder="Ej: 5200">
+                                        <span class="suffix">HRS</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="pb-form-group mt-3">
+                                <label>Foto del Horómetro</label>
+                                <div style="border: 2px dashed #ddd; padding: 20px; text-align: center; border-radius: 8px; cursor: pointer; background: #fafafa;">
+                                    <i class="fa-solid fa-clock" style="font-size: 2rem; color: #ccc; margin-bottom: 10px;"></i>
+                                    <p style="margin: 0; color: #777; font-size: 0.9rem;">Sube una foto clara del panel de horas</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pb-card pb-white-card">
+                            <div class="pb-card-header-clean">
+                                <i class="fa-solid fa-image" style="color: var(--yellow); margin-right: 10px;"></i>
+                                <b>Fotos y Multimedia</b>
+                            </div>
+                            <div class="pb-dragger">
+                                <div class="dragger-icon">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                                </div>
+                                <h4>Arrastra tus fotos aquí</h4>
+                                <p>Formatos soportados: JPG, PNG. Mínimo 4 fotos<br>(frente, perfiles, cabina, motor).
+                                </p>
+                                <button class="btn-dragger">Seleccionar archivos</button>
+                            </div>
+
+                            <div class="pb-gallery">
+                                <div class="pb-gallery-item">
+                                    <img src="img-vedimaq/grid-bg.png" alt="foto">
+                                    <div class="badge-principal">PRINCIPAL</div>
+                                </div>
+                                <div class="pb-gallery-item empty">
+                                    <i class="fa-solid fa-plus"></i>
+                                </div>
+                                <div class="pb-gallery-item empty">
+                                    <i class="fa-solid fa-plus"></i>
+                                </div>
+                                <div class="pb-gallery-item empty">
+                                    <i class="fa-solid fa-plus"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="pb-col-right">
+                        <div class="pb-summary-card">
+                            <h3>Resumen de publicación</h3>
+                            <div class="pb-summary-item">
+                                <span class="label">PRECIO VENTA</span>
+                                <div class="val-row">
+                                    <input type="text" class="input-lg" value="$ 0">
+                                    <i class="fa-solid fa-pencil pencil-icon" style="color: #fbc02d;"></i>
+                                </div>
+                                <span class="help-text">El precio final será validado por nuestro equipo
+                                    comercial.</span>
+                            </div>
+
+                            <div class="pb-summary-item mt-4">
+                                <div class="pb-map-box">
+                                    <span class="label">MAPA DE UBICACIÓN</span>
+                                    <div class="map-placeholder">
+                                        <img src="img-vedimaq/grid-bg.png" alt="map">
+                                        <i class="fa-solid fa-location-dot map-pin"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pb-summary-item mt-4">
+                                <div class="pb-garantia-box">
+                                    <i class="fa-solid fa-shield-check"></i>
+                                    <div>
+                                        <h4>Garantía Vedimaq</h4>
+                                        <p>Todas las publicaciones pasan por un filtro técnico antes de ser activadas.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-4">
+                                <button class="btn-yellow-full" onclick="showPbStep(3)">Publicar maquinaria <i
+                                        class="fa-solid fa-check"></i></button>
+                                <button class="btn-ghost-full mt-2" onclick="showPbStep(1)">Regresar al paso
+                                    anterior</button>
+                                <div class="text-center mt-3">
+                                    <a href="#" class="link-cancel">Guardar borrador y salir</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTENT STEP 3 -->
+            <div id="pbStep3" class="pb-content-step" style="display: none;">
+                <div class="pb-success-box">
+                    <div class="success-icon-large">
+                        <i class="fa-regular fa-circle-check"></i>
+                    </div>
+                    <h2>¡Solicitud Recibida!</h2>
+                    <p class="desc" style="max-width: 600px; margin: 0 auto;">Solicitud enviada. Nuestro equipo revisará la documentación para verificar que la maquinaria es legal y cumple nuestros estándares.</p>
+
+                    <div class="pb-success-card">
+                        <div class="card-header">
+                            <i class="fa-regular fa-file-lines"></i> Resumen de la Maquinaria
+                        </div>
+                        <div class="card-body">
+                            <img src="img-vedimaq/grid-bg.png" alt="Maquina" class="card-img">
+                            <div class="card-details">
+                                <div class="detail-grid">
+                                    <div>
+                                        <span class="label">VENDEDOR</span>
+                                        <span class="val">Belén García</span>
+                                    </div>
+                                    <div>
+                                        <span class="label">RUT</span>
+                                        <span class="val">12.345.678-9</span>
+                                    </div>
+                                    <div>
+                                        <span class="label">CORREO</span>
+                                        <span class="val">b.garcia@vendedor.cl</span>
+                                    </div>
+                                    <div>
+                                        <span class="label">UBICACIÓN</span>
+                                        <span class="val">Concón, Valparaíso, Chile</span>
+                                    </div>
+                                    <div>
+                                        <span class="label">EQUIPO</span>
+                                        <span class="val">Excavadora Caterpillar 320D</span>
+                                    </div>
+                                    <div>
+                                        <span class="label">ID SOLICITUD</span>
+                                        <span class="val">#VMQ-892341</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="badge-revision">PENDIENTE DE REVISIÓN</span>
+                            <span class="date-est"><i class="fa-regular fa-clock"></i> Publicación estimada: Miércoles
+                                14 de Junio</span>
+                        </div>
+                    </div>
+
+                    <div class="success-actions" style="margin-top: 40px;">
+                        <button class="btn-yellow" onclick="localStorage.setItem('vedimaq_has_published', 'true'); window.location.href='index.html'" style="padding: 15px 40px; font-weight: bold; font-size: 1.1rem;">Volver al Home</button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
     </main>
 
+    <!-- FOOTER -->
     <!-- QUOTE DRAWER (SIDEBAR MODAL) -->
     <div class="quote-drawer-overlay" id="quoteOverlay"></div>
     <div class="quote-drawer" id="quoteDrawer">
@@ -749,7 +613,16 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Require Auth
+            if (!localStorage.getItem('vedimaq_auth')) {
+                window.location.href = 'login.html';
+            }
+        });
+    </script>
 </body>
 
 </html>
+
 

@@ -25,12 +25,14 @@
             <ul class="nav-links" id="navLinks">
                 <li><a href="index.html">Inicio</a></li>
                 <li><a href="index2.html">Maquinarias</a></li>
+                <li><a href="index3.html">Mantenimiento</a></li>
                 <li><a href="index.html#nosotros">Quiénes somos</a></li>
                 <li><a href="index.html#contacto">Contacto</a></li>
-                <li><a href="index1.html">Publica tu máquina</a></li>
+                <li><a href="login.html">Publica tu máquina</a></li>
             </ul>
 
             <div class="header-actions">
+                <a href="#" class="btn-outline auth-btn" id="headerAuthBtn"><i class="fa-regular fa-user"></i> Ingresar</a>
                 <div class="search-container" id="searchContainer">
                     <input type="text" class="search-input" id="searchInput" placeholder="Buscar maquinaria...">
                     <button type="button" class="search-icon-btn" id="searchIconBtn"><i
@@ -46,14 +48,15 @@
     </header>
 
     <!-- PUBLISH FLOW MAIN -->
-    <main class="publish-flow-main">
+    <!-- PUBLISH FLOW MAIN -->
+    <main class="publish-flow-main" style="background-color: #f6f6f6; min-height: calc(100vh - 200px); padding: 120px 0 60px 0;">
         <div class="container pb-container">
-            <div class="vender-main-title">
+            
+            <!-- STEPS INDICATOR (Hidden in Step 1) -->
+            <div class="vender-main-title" id="pbMainTitle" style="display: none;">
                 <h1>Vende tu maquinaria con nosotros</h1>
             </div>
-
-            <!-- STEPS INDICATOR (RESTRUCTURED) -->
-            <div class="pb-stepper-container">
+            <div class="pb-stepper-container" id="pbStepper" style="display: none;">
                 <div class="pb-step-item active" id="pbStepTab1" onclick="showPbStep(1)">
                     <div class="step-icon-circle"><i class="fa-solid fa-user-plus"></i></div>
                     <div class="step-info">
@@ -79,107 +82,67 @@
                 </div>
             </div>
 
-            <!-- CONTENT STEP 1: DETALLES -->
+            <!-- CONTENT STEP 1: REGISTRO (SPLIT LAYOUT) -->
             <div id="pbStep1" class="pb-content-step active">
-                <div class="pb-card pb-step-card-v2">
-                    <div class="pb-card-header-dark">
-                        <h3>Información del vendedor</h3>
-                        <p>Completa la información básica para comenzar con tu publicación.</p>
+                <div class="register-split-layout">
+                    <!-- Left Side: Info -->
+                    <div class="register-info-col">
+                        <h1 class="register-main-title">Crea tu cuenta de<br>vendedor</h1>
+                        <p class="register-desc">Regístrate para publicar tu maquinaria en Vedimaq. Tu cuenta pasará por una revisión de nuestro equipo (24-48hrs) antes de publicar.</p>
+                        
+                        <div class="register-verify-box">
+                            <div class="rv-icon">
+                                <i class="fa-solid fa-certificate"></i>
+                            </div>
+                            <div class="rv-text">
+                                <h4>Verificar identidad</h4>
+                                <p>Validación técnica para todas las entidades comerciales.</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="pb-card-body">
-                        <!-- Vendedor Info -->
-                        <div class="pb-form-row">
-                            <div class="pb-form-group">
-                                <label>Nombre completo</label>
-                                <input type="text" placeholder="Belen García">
-                            </div>
-                            <div class="pb-form-group">
-                                <label>Rut</label>
-                                <input type="text" placeholder="12.345.678-9">
-                            </div>
-                        </div>
-                        <div class="pb-form-row">
-                            <div class="pb-form-group">
-                                <label>Correo electrónico</label>
-                                <input type="email" placeholder="b.garcia@vendedor.cl">
-                            </div>
-                            <div class="pb-form-group">
-                                <label>Teléfono de Contacto</label>
-                                <input type="tel" placeholder="+569...">
-                            </div>
-                        </div>
 
-                        <!-- Section Divider -->
-                        <div class="pb-section-title">
-                            <span>Especificaciones técnicas</span>
-                            <div class="pb-title-line"></div>
-                        </div>
+                    <!-- Right Side: Form -->
+                    <div class="register-form-col">
+                        <div class="register-card">
+                            <form id="registerForm" onsubmit="event.preventDefault(); const rName = document.getElementById('regName').value; const rEmail = document.getElementById('regEmail').value; localStorage.setItem('vedimaq_auth', 'true'); localStorage.setItem('vedimaq_user_name', rName); localStorage.setItem('vedimaq_user_email', rEmail); document.getElementById('pbMainTitle').style.display='block'; document.getElementById('pbStepper').style.display='flex'; showPbStep(2);">
+                                <div class="form-group">
+                                    <label>Nombre completo</label>
+                                    <input type="text" id="regName" placeholder="Nombre completo" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Correo electrónico</label>
+                                    <input type="email" id="regEmail" placeholder="correo@empresa.cl" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Rut</label>
+                                    <input type="text" placeholder="12.345.678-9" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Telefono</label>
+                                    <input type="tel" placeholder="+569..." required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Contraseña</label>
+                                    <div class="input-with-icon">
+                                        <input type="password" id="regPass" placeholder="••••••••" required>
+                                        <i class="fa-regular fa-eye icon-right" id="regEyeToggle" onclick="togglePasswordVisibility('regPass', 'regEyeToggle')"></i>
+                                    </div>
+                                </div>
+                                
+                                <div class="terms-checkbox">
+                                    <label>
+                                        <input type="checkbox" required>
+                                        <span>Acepto los <a href="#">Términos de Servicio</a> y los <a href="#">Estándares de Seguridad.</a></span>
+                                    </label>
+                                </div>
 
-                        <!-- Especificaciones -->
-                        <div class="pb-form-row">
-                            <div class="pb-form-group">
-                                <label>Categoría</label>
-                                <select class="pb-select">
-                                    <option value="" disabled selected>Selecciona una categoría</option>
-                                    <option value="excavadora">Excavadora</option>
-                                    <option value="retroexcavadora">Retroexcavadora</option>
-                                    <option value="bulldozer">Bulldozer</option>
-                                </select>
-                            </div>
-                            <div class="pb-form-group">
-                                <label>Marca</label>
-                                <input type="text" placeholder="Ej. Caterpillar, Komatsu">
-                            </div>
+                                <button type="submit" class="btn-yellow-full mt-3">Continuar al siguiente paso <i class="fa-solid fa-arrow-right"></i></button>
+                                
+                                <div class="login-redirect">
+                                    ¿Ya tienes cuenta? <a href="login.html">Ingresa aquí</a>
+                                </div>
+                            </form>
                         </div>
-                        <div class="pb-form-row">
-                            <div class="pb-form-group">
-                                <label>Modelo</label>
-                                <input type="text" placeholder="Ej. 320D, PC200">
-                            </div>
-                            <div class="pb-form-group">
-                                <label>Año</label>
-                                <select class="pb-select">
-                                    <option value="" disabled selected>Año de fabricación</option>
-                                    <option value="2024">2024</option>
-                                    <option value="2023">2023</option>
-                                    <option value="2022">2022</option>
-                                    <option value="2021">2021</option>
-                                    <option value="2020">2020</option>
-                                    <option value="2019">2019</option>
-                                    <option value="2018">2018</option>
-                                    <option value="2017">2017</option>
-                                    <option value="2016">2016</option>
-                                    <option value="2015">2015</option>
-                                    <option value="2014">2014</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- Condición -->
-                        <div class="pb-form-group">
-                            <label>Condición del equipo</label>
-                            <div class="condition-selector-v2">
-                                <label class="condition-option-v2">
-                                    <input type="radio" name="condition" value="nuevo">
-                                    <span class="condition-box-v2"><span class="radio-circle"></span> Nuevo</span>
-                                </label>
-                                <label class="condition-option-v2">
-                                    <input type="radio" name="condition" value="excelente">
-                                    <span class="condition-box-v2"><span class="radio-circle"></span> Usado -
-                                        Excelente</span>
-                                </label>
-                                <label class="condition-option-v2">
-                                    <input type="radio" name="condition" value="regular">
-                                    <span class="condition-box-v2"><span class="radio-circle"></span> Usado -
-                                        Regular</span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <button class="btn-yellow-full mt-4" onclick="showPbStep(2)">Continuar al siguiente paso <i
-                                class="fa-solid fa-arrow-right"></i></button>
-                        <p class="terms-text" style="font-size: 0.7rem; color: #888;">Al continuar, aceptas nuestros
-                            términos de servicio y políticas de privacidad.</p>
                     </div>
                 </div>
             </div>
@@ -360,7 +323,8 @@
                     </div>
 
                     <div class="success-actions">
-                        <button class="btn-yellow" onclick="window.location.href='index.html'">Volver al Inicio</button>
+                        <button class="btn-yellow" onclick="localStorage.setItem('vedimaq_has_published', 'true'); window.location.href='dashboard.html'" style="padding: 15px 30px; font-weight: bold;">Ver mis publicaciones</button>
+                        <button class="btn-ghost" onclick="localStorage.setItem('vedimaq_has_published', 'true'); window.location.href='index.html'" style="padding: 15px 30px; font-weight: bold; margin-left: 10px;">Volver al Inicio</button>
                     </div>
 
                 </div>
@@ -373,21 +337,30 @@
     <!-- QUOTE DRAWER (SIDEBAR MODAL) -->
     <div class="quote-drawer-overlay" id="quoteOverlay"></div>
     <div class="quote-drawer" id="quoteDrawer">
-        <div class="drawer-header">
-            <h3 id="modalTitle">COTIZACIÓN · PASO 1/3</h3>
-            <button class="close-drawer" id="closeDrawer"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-
-        <!-- STEPS HEADER -->
-        <div class="modal-steps">
-            <div class="step-item active" id="stepIndicator1">
-                <span class="step-num">1</span> 1. DATOS
+        <div class="drawer-header-dark">
+            <div class="dh-top">
+                <h3 id="modalTitle">COTIZACIÓN -PASOS 1/3</h3>
+                <button class="close-drawer" id="closeDrawer"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <div class="step-item" id="stepIndicator2">
-                <span class="step-num">2</span> 2. REVISAR
-            </div>
-            <div class="step-item" id="stepIndicator3">
-                <span class="step-num">3</span> 3. ENVIADO
+            <div class="dh-tabs">
+                <div class="dh-tab active" id="stepIndicator1">
+                    <div class="dh-tab-inner">
+                        <span class="dh-step-circle">1</span>
+                        <span class="dh-step-label">Datos</span>
+                    </div>
+                </div>
+                <div class="dh-tab" id="stepIndicator2">
+                    <div class="dh-tab-inner">
+                        <span class="dh-step-circle">2</span>
+                        <span class="dh-step-label">Revisar</span>
+                    </div>
+                </div>
+                <div class="dh-tab" id="stepIndicator3">
+                    <div class="dh-tab-inner">
+                        <span class="dh-step-circle">3</span>
+                        <span class="dh-step-label">Enviado</span>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -397,186 +370,219 @@
                 <div class="modal-row">
                     <!-- Left: Form -->
                     <div class="modal-col-left">
-                        <!-- TABS / SWITCH -->
-                        <div class="drawer-tabs">
-                            <button type="button" class="drawer-tab active" id="tabCompra">Quiero Comprar</button>
-                            <button type="button" class="drawer-tab" id="tabArriendo">Quiero Arrendar</button>
-                        </div>
-
-                        <form id="quoteForm">
-                            <input type="hidden" id="formType" value="compra">
-
+                        <form id="quoteForm" class="styled-form">
                             <div class="form-group">
-                                <label>Nombre o Empresa *</label>
-                                <input type="text" id="inNombre" placeholder="Ej: Juan Pérez / Constructora SpA"
-                                    required>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label>RUT *</label>
-                                    <input type="text" id="inRut" placeholder="12.345.678-9" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Email *</label>
-                                    <input type="email" id="inEmail" placeholder="correo@empresa.cl" required>
-                                </div>
+                                <label>INTERÉS EN</label>
+                                <select id="formType" class="form-control">
+                                    <option value="compra">Compra</option>
+                                    <option value="arriendo">Arriendo</option>
+                                </select>
                             </div>
 
                             <div class="form-group">
-                                <label>Teléfono de contacto *</label>
-                                <input type="tel" id="inTel" placeholder="+56 9 1234 5678" required>
+                                <label>NOMBRE O EMPRESA COMPLETO</label>
+                                <input type="text" id="inNombre" class="form-control" placeholder="Ej: Juan Pérez" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>RUT</label>
+                                <input type="text" id="inRut" class="form-control" placeholder="76.123.456-K" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>EMAIL DE EMPRESA</label>
+                                <input type="email" id="inEmail" class="form-control" placeholder="juan@empresa.cl" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>TELÉFONO DE CONTACTO</label>
+                                <input type="tel" id="inTel" class="form-control" placeholder="+56 9 1234 5678" required>
                             </div>
 
                             <!-- ARRIENDO EXTRA FIELDS -->
-                            <div id="arriendoFields" class="arriendo-extra-fields" style="display: none;">
+                            <div id="arriendoFields" class="hidden">
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                                    <div class="form-group">
+                                        <label>REGIÓN</label>
+                                        <select id="inRegion" class="form-control">
+                                            <option value="">Selecciona Región</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>COMUNA</label>
+                                        <select id="inComuna" class="form-control" disabled>
+                                            <option value="">Selecciona Comuna</option>
+                                        </select>
+                                    </div>
+                                </div>
+
                                 <div class="form-group">
-                                    <label>Ubicación del Proyecto *</label>
-                                    <input type="text" id="inUbicacion" placeholder="Región / Comuna / Faena">
+                                    <label>DIRECCIÓN EXACTA / FAENA</label>
+                                    <input type="text" id="inDireccion" class="form-control" placeholder="Ej: Camino a Faena X, km 45">
                                 </div>
 
-                                <div class="form-row">
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
                                     <div class="form-group">
-                                        <label>Fecha de Inicio *</label>
-                                        <input type="date" id="inFechaIni">
+                                        <label>FECHA DE INICIO</label>
+                                        <input type="date" id="inFechaIni" class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <label>Fecha de Término *</label>
-                                        <input type="date" id="inFechaFin">
+                                        <label>FECHA DE TÉRMINO</label>
+                                        <input type="date" id="inFechaFin" class="form-control">
                                     </div>
                                 </div>
 
-                                <div class="duration-badge" id="durationBadge">
-                                    <i class="fa-solid fa-clock"></i> Duración total: Selecciona fechas
+                                <div class="duration-badge hidden" id="durationBadge" style="font-size: 0.8rem; margin-bottom: 20px; font-weight: bold; color: var(--dark); background-color: rgba(251, 191, 36, 0.2); padding: 10px; border-radius: 6px; display: inline-block;">
+                                    <i class="fa-solid fa-clock" style="color: var(--yellow);"></i> Duración total: <span id="daysCount">0</span> días
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label>Mensaje adicional</label>
-                                <textarea id="inMensaje" rows="3"
-                                    placeholder="Cuéntanos más sobre tus necesidades: tipo de faena, operador requerido..."></textarea>
+                                <label>MENSAJE ADICIONAL</label>
+                                <textarea id="inMensaje" class="form-control" rows="3" placeholder="Cuéntanos más sobre tus necesidades..."></textarea>
                             </div>
+                            
+                            <div class="drawer-footer">
+                                <button type="button" class="btn-cancel" id="btnCancelDrawer">Cancelar</button>
+                                <button type="button" class="btn-submit-drawer" id="btnNextStep">Continuar</button>
+                            </div>
+                            <p class="form-disclaimer">Al enviar, aceptas nuestros términos de servicio y políticas de privacidad.</p>
                         </form>
                     </div>
 
                     <!-- Right: Summary Card -->
                     <div class="modal-col-right">
-                        <div class="summary-card">
-                            <div class="s-label">RESUMEN</div>
-                            <div class="s-img">
-                                <img id="sImage" src="img-vedimaq/grid-bg.png" alt="Máquina">
+                        <div class="resumen-card">
+                            <span class="rc-label">RESUMEN</span>
+                            <div class="rc-gallery">
+                                <div class="rc-main-img">
+                                    <img id="sImage" src="img-vedimaq/grid-bg.png" alt="Máquina">
+                                </div>
+                                <div class="rc-thumbs" id="sThumbs">
+                                    <img src="img-vedimaq/grid-bg.png" alt="thumb">
+                                    <img src="img-vedimaq/grid-bg.png" alt="thumb">
+                                    <img src="img-vedimaq/grid-bg.png" alt="thumb">
+                                </div>
                             </div>
-                            <div class="s-cat" id="dCategory">Categoría</div>
-                            <h4 id="dProductName">Nombre del Equipo</h4>
-                            <div class="s-badge" id="sServiceType">SERVICIO: COMPRA</div>
-
-                            <hr class="s-divider">
-
-                            <div class="s-label">PRECIO REFERENCIAL</div>
-                            <div class="s-price" id="dProductPrice">Consultar</div>
+                            <div class="rc-info">
+                                <span class="rc-category" id="dCategory">EXCAVADORA</span>
+                                <h4 class="rc-title" id="dProductName">Modelo HS-1000 X-Series</h4>
+                                
+                                <div class="rc-specs">
+                                    <span><i class="fa-solid fa-gear"></i> 450 HP</span>
+                                    <span><i class="fa-solid fa-weight-hanging"></i> 32.5 Ton</span>
+                                    <span><i class="fa-solid fa-gas-pump"></i> Diesel</span>
+                                    <span><i class="fa-solid fa-clock"></i> 0 hrs</span>
+                                </div>
+                                
+                                <div class="rc-price-section">
+                                    <div class="rc-price-val">
+                                        <span class="rc-price-label">PRECIO</span>
+                                        <div id="dProductPrice">UF 1.250</div>
+                                    </div>
+                                    <button type="button" class="btn-gray">Ver ficha técnica</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="drawer-footer">
-                    <button type="button" class="btn-cancel" id="btnCancelDrawer">Cancelar</button>
-                    <button type="button" class="btn-submit-drawer" id="btnNextStep">Continuar <i
-                            class="fa-solid fa-arrow-right"></i></button>
                 </div>
             </div>
 
             <!-- STEP 2: REVISAR -->
-            <div id="step2Content" class="step-content" style="display: none;">
+            <div id="step2Content" class="step-content hidden">
                 <div class="modal-row">
-                    <!-- Left: User Data -->
-                    <div class="modal-col-left">
-                        <h3 class="step-title">Resumen de Solicitud</h3>
+                    <div class="modal-col-left review-data">
+                        <h2 class="step-title">Resumen de Solicitud</h2>
                         <p class="step-desc">Por favor, revise los detalles de su solicitud antes de enviarla.</p>
-
+                        
                         <div class="review-box">
-                            <h4 class="rb-title"><i class="fa-solid fa-circle-check" style="color: var(--yellow)"></i>
-                                Información del Solicitante</h4>
-
+                            <div class="rb-title"><i class="fa-solid fa-circle-check" style="color: var(--yellow);"></i> Información del Solicitante</div>
+                            
                             <div class="rb-grid">
                                 <div>
                                     <span class="rb-label">NOMBRE COMPLETO</span>
-                                    <div class="rb-value" id="rNombre">---</div>
+                                    <span class="rb-value" id="rvNombre" style="font-weight: 700; color: #333;">belen</span>
                                 </div>
                                 <div>
                                     <span class="rb-label">CORREO ELECTRÓNICO</span>
-                                    <div class="rb-value" id="rEmail">---</div>
+                                    <span class="rb-value" id="rvEmail" style="font-weight: 700; color: #333;">belen.brionesibeas@gmail.com</span>
                                 </div>
                                 <div>
                                     <span class="rb-label">RUT</span>
-                                    <div class="rb-value" id="rRut">---</div>
+                                    <span class="rb-value" id="rvRut" style="font-weight: 700; color: #333;">20838831-2</span>
                                 </div>
                                 <div>
                                     <span class="rb-label">TELÉFONO</span>
-                                    <div class="rb-value" id="rTel">---</div>
+                                    <span class="rb-value" id="rvTel" style="font-weight: 700; color: #333;">+56957190304</span>
                                 </div>
                             </div>
 
-                            <div id="rArriendoBox" class="rb-arriendo-box" style="display: none;">
-                                <span class="rb-label">UBICACIÓN DEL PROYECTO</span>
-                                <div class="rb-value" id="rUbicacion">---</div>
+                            <div id="rvArriendoSection" class="hidden" style="margin-top: 25px; border-top: 1px solid #eaeaea; padding-top: 25px;">
+                                <div class="rb-title"><i class="fa-solid fa-truck-fast" style="color: var(--yellow);"></i> Información de Despacho y Arriendo</div>
+                                <div class="rb-grid">
+                                    <div>
+                                        <span class="rb-label">UBICACIÓN DEL PROYECTO</span>
+                                        <span class="rb-value" id="rvUbicacion" style="font-weight: 700; color: #333;">---</span>
+                                    </div>
+                                    <div>
+                                        <span class="rb-label">PERIODO</span>
+                                        <span class="rb-value" id="rvFechas" style="font-weight: 700; color: #333;">---</span>
+                                        <span id="rvDuracion" style="font-size: 0.8rem; color: #888; display: block; margin-top: 5px; font-weight: 600;">---</span>
+                                    </div>
+                                </div>
                             </div>
+                        </div>
+
+                        <div class="drawer-footer-left">
+                            <button type="button" class="btn-link" id="btnPrevStep" style="color: #666;"><i class="fa-solid fa-arrow-left"></i> Editar datos</button>
                         </div>
                     </div>
 
-                    <!-- Right: Cost Summary -->
                     <div class="modal-col-right">
-                        <div class="cost-card">
-                            <div class="cc-label">RESUMEN DE COSTOS</div>
-
-                            <div class="cc-row" style="margin-top: 15px;">
+                        <div class="cost-card" style="background-color: #12151B; color: #fff; padding: 30px; border-radius: 12px; height: 100%;">
+                            <span class="cc-label" style="font-size: 0.65rem; color: #888; font-weight: 700; letter-spacing: 1px; display: block; margin-bottom: 25px;">RESUMEN DE COSTOS</span>
+                            <div class="cc-row" style="display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 0.85rem;">
                                 <span>SUBTOTAL EQUIPO</span>
-                                <span class="cc-val" id="cSubtotal">$0</span>
+                                <span class="cc-val" id="csSubtotal" style="font-weight: 700;">$1.250</span>
                             </div>
-                            <div class="cc-row">
-                                <span class="cc-iva">IVA (19%)</span>
-                                <span class="cc-iva" id="cIva">$0</span>
+                            <div class="cc-row" style="display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 0.85rem;">
+                                <span class="cc-iva" style="color: #888;">IVA (19%)</span>
+                                <span class="cc-val cc-iva" id="csIva" style="color: #888;">$238</span>
                             </div>
-
-                            <hr class="cc-divider">
-
-                            <div class="cc-total-label">TOTAL ESTIMADO</div>
-                            <div class="cc-total-val" id="cTotal">$0</div>
-                            <div class="cc-iva-included">+ IVA Incluido</div>
-
-                            <button type="button" class="btn-submit-final" id="btnSubmitFinal">
-                                Enviar Solicitud <i class="fa-solid fa-arrow-right"></i>
-                            </button>
-
-                            <button type="button" class="btn-pdf-ghost">
-                                <i class="fa-solid fa-download"></i> DESCARGAR PDF
-                            </button>
-
-                            <p class="cc-disclaimer">Al enviar esta solicitud, nuestro equipo técnico se contactará en
-                                un plazo máximo de 2 horas hábiles.</p>
+                            
+                            <hr class="cc-divider" style="border: none; border-top: 1px solid #333; margin: 25px 0;">
+                            
+                            <span class="cc-total-label" style="color: var(--yellow); font-size: 0.7rem; font-weight: 700; display: block; margin-bottom: 5px;">TOTAL ESTIMADO</span>
+                            <div class="cc-total-val" id="csTotal" style="font-size: 2.5rem; font-weight: 800; line-height: 1; margin-bottom: 5px;">$1.488</div>
+                            <span class="cc-iva-included" style="font-size: 0.65rem; color: #888;">+ IVA incluido</span>
+                            
+                            <div style="margin-top: 35px; display: flex; flex-direction: column; gap: 15px;">
+                                <button type="button" class="btn-submit-final" id="btnSubmitFinal" style="background-color: var(--yellow); color: #12151B; font-weight: 700; padding: 15px; border-radius: 8px; border: none; cursor: pointer; width: 100%; font-size: 0.95rem;">Enviar Solicitud <i class="fa-solid fa-arrow-right"></i></button>
+                                <button type="button" class="btn-pdf-ghost" id="btnDownloadPdfTemp" style="background-color: transparent; border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 15px; border-radius: 8px; font-weight: 700; cursor: pointer; width: 100%; font-size: 0.85rem;"><i class="fa-solid fa-download" style="margin-right: 8px;"></i> DESCARGAR PDF</button>
+                            </div>
+                            
+                            <p class="cc-disclaimer" style="font-size: 0.65rem; color: #666; text-align: center; margin-top: 25px; line-height: 1.5;">Al enviar esta solicitud, nuestro equipo técnico se contactará en un plazo máximo de 2 horas hábiles.</p>
                         </div>
                     </div>
-                </div>
-
-                <div class="drawer-footer centered">
-                    <button type="button" class="btn-link" id="btnPrevStep"><i class="fa-solid fa-arrow-left"></i>
-                        Editar datos</button>
                 </div>
             </div>
 
             <!-- STEP 3: ENVIADO -->
-            <div id="step3Content" class="step-content text-center" style="display: none; padding: 40px 20px;">
-                <div class="success-icon">
+            <div id="step3Content" class="step-content text-center" style="display: none; padding: 60px 20px;">
+                <div class="success-icon" style="font-size: 5rem; color: #2ecc71; margin-bottom: 20px;">
                     <i class="fa-solid fa-circle-check"></i>
                 </div>
-                <h2 class="success-title">¡Cotización enviada correctamente a tu correo!</h2>
-                <p class="success-desc">Hemos enviado una copia con el PDF adjunto a <b id="sEmail">tu correo</b>.
+                <h2 class="success-title" style="font-size: 1.8rem; color: var(--dark); margin-bottom: 15px;">¡Cotización enviada correctamente a tu correo!</h2>
+                <p class="success-desc" style="color: #666; margin-bottom: 15px;">Hemos enviado una copia con el PDF adjunto a <b id="sEmail">belen.brionesibeas@gmail.com</b>.<br>
                     Nuestro equipo técnico te contactará en menos de 2 horas hábiles.</p>
-                <p class="success-folio" id="sFolio">Folio #VM-000000</p>
+                <p class="success-folio" id="sFolio" style="color: #999; font-size: 0.9rem; margin-bottom: 40px;">Folio #VM-506272</p>
 
-                <div class="success-actions">
-                    <button type="button" class="btn-pdf-outline"><i class="fa-solid fa-download"></i> Descargar
-                        PDF</button>
-                    <button type="button" class="btn-submit-final" id="btnFinishModal">Ver más maquinaria</button>
+                <div class="success-actions" id="successActionsContainer" style="display: flex; justify-content: center; gap: 15px;">
+                    <button type="button" class="btn-pdf-outline" id="btnDownloadPdf"><i class="fa-solid fa-download" style="margin-right:8px;"></i> Descargar PDF</button>
+                    <button type="button" class="btn-whatsapp" id="btnWhatsApp" style="background-color: #25D366; color: white; border: none; padding: 15px 25px; font-size: 0.95rem; border-radius: 8px; cursor: pointer; font-weight: bold; display: flex; align-items: center; gap: 8px; font-family: inherit; transition: background-color 0.3s;" onmouseover="this.style.backgroundColor='#20b858'" onmouseout="this.style.backgroundColor='#25D366'">
+                        <i class="fa-brands fa-whatsapp" style="font-size: 1.2rem;"></i> Enviar por WhatsApp
+                    </button>
+                    <button type="button" class="btn-submit-drawer" onclick="window.location.href='index2.html'" style="padding: 15px 25px; font-size: 0.95rem;">Ver más maquinaria</button>
                 </div>
             </div>
         </div>
@@ -636,3 +642,5 @@
 </body>
 
 </html>
+
+

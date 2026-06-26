@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <link rel="icon" type="image/x-icon" href="img-vedimaq/V-img.vedimac(1).png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vedimaq — Maquinarias de alto rendimiento</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="quote-drawer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="img-vedimaq/Vedimaq.logo-original.png" alt="Vedimaq Logo">
+                </a>
+            </div>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index2.html">Maquinarias</a></li>
+                <li><a href="index3.html">Mantenimiento</a></li>
+                <li><a href="#nosotros">Quiénes somos</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+                <li><a href="login.html">Publica tu máquina</a></li>
+            </ul>
+
+            <div class="header-actions">
+                <a href="#" class="btn-outline auth-btn" id="headerAuthBtn"><i class="fa-regular fa-user"></i> Ingresar</a>
+                <div class="search-container" id="searchContainer">
+                    <input type="text" class="search-input" id="searchInput" placeholder="Buscar maquinaria...">
+                    <button type="button" class="search-icon-btn" id="searchIconBtn"><i
+                            class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- LOGIN MAIN -->
+    <main class="login-main-container">
+        <div class="login-intro">
+            <h2>¿Cómo funciona?</h2>
+            <p>Publicar tu equipo nunca ha sido tan sencillo en tres pasos rápidos.</p>
+            
+            <div class="login-steps-visual">
+                <div class="ls-step">
+                    <div class="ls-icon"><i class="fa-solid fa-user-plus"></i></div>
+                    <h4>1. Regístrate</h4>
+                    <p>Crea tu cuenta de vendedor en segundos con tus datos básicos.</p>
+                </div>
+                <div class="ls-line"></div>
+                <div class="ls-step">
+                    <div class="ls-icon"><i class="fa-solid fa-camera"></i></div>
+                    <h4>2. Sube fotos</h4>
+                    <p>Captura los mejores ángulos de tu equipo y describe sus características.</p>
+                </div>
+                <div class="ls-line"></div>
+                <div class="ls-step">
+                    <div class="ls-icon"><i class="fa-solid fa-circle-check"></i></div>
+                    <h4>3. Solicitud</h4>
+                    <p>Conecta con compradores calificados y cierra la venta con seguridad.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="login-card-section">
+            <div class="login-card">
+                <h2>Iniciar Sesión</h2>
+                <p class="login-subtitle">Ingresa tus credenciales para acceder a tu panel de vendedor.</p>
+                
+                <form id="loginForm" class="login-form" onsubmit="event.preventDefault(); const u = document.getElementById('loginUser').value; localStorage.setItem('vedimaq_auth', 'true'); localStorage.setItem('vedimaq_user_name', u); localStorage.setItem('vedimaq_user_email', u.includes('@') ? u : 'contacto@empresa.cl'); window.location.href='dashboard.html';">
+                    <div class="form-group">
+                        <label for="loginUser">Nombre completo o Email</label>
+                        <input type="text" id="loginUser" placeholder="Nombre completo" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPass">Contraseña</label>
+                        <div class="input-with-icon">
+                            <input type="password" id="loginPass" placeholder="••••••••" required>
+                            <i class="fa-regular fa-eye icon-right" id="loginEyeToggle" onclick="togglePasswordVisibility('loginPass', 'loginEyeToggle')"></i>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-login-main">Ingresar <i class="fa-solid fa-arrow-right-to-bracket"></i></button>
+                </form>
+                
+                <div class="login-links">
+                    <a href="#" class="link-forgot">¿Olvidaste tu contraseña?</a>
+                    <span class="link-register">¿No tienes cuenta? <a href="index1.html">Regístrate</a></span>
+                </div>
+            </div>
+        </div>
+    </main>
+<footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <img src="img-vedimaq/vedimaq.logo-original.png" alt="Vedimaq Logo" class="footer-logo">
+                <p>Especialistas en la venta y arriendo de maquinaria pesada para todo tipo de proyectos industriales y
+                    de construcción en Chile.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-links-container">
+                <div class="footer-column">
+                    <h4>CATEGORÍAS</h4>
+                    <ul>
+                        <li><a href="#">Construcción</a></li>
+                        <li><a href="#">Mineria</a></li>
+                        <li><a href="#">Portuario</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>COMPAÑÍA</h4>
+                    <ul>
+                        <li><a href="#">Sobre Nosotros</a></li>
+                        <li><a href="index3.html">Servicio Técnico</a></li>
+                        <li><a href="#">Casos de Éxito</a></li>
+                        <li><a href="#">Términos y Condiciones</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column contact-column">
+                    <h4>CONTACTO</h4>
+                    <ul>
+                        <li><i class="fa-solid fa-location-dot"></i> Avenida Principal 1234,<br>Concón, Valparaíso,
+                            Chile</li>
+                        <li><i class="fa-solid fa-phone"></i> +56 9 9827 2162</li>
+                        <li><i class="fa-solid fa-envelope"></i> contacto@vedimaq.cl</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Vedimaq SpA. Todos los derechos reservados.</p>
+            <p>Hecho en Chile - RUT 77.858.999-0</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
+

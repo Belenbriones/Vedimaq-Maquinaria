@@ -1,5 +1,35 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    // --- AUTH LOGIC ---
+    const authBtn = document.getElementById('headerAuthBtn');
+    const isAuth = localStorage.getItem('vedimaq_auth') === 'true';
+    if (authBtn) {
+        if (isAuth) {
+            authBtn.innerHTML = '<i class="fa-solid fa-user"></i> Mi Dashboard';
+            authBtn.href = 'dashboard.html';
+        } else {
+            authBtn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Iniciar Sesión';
+            authBtn.href = 'login.html';
+        }
+    }
+
+    // Protect Routes
+    const path = window.location.pathname;
+    if ((path.includes('index1.html') || path.includes('index3.html')) && !isAuth) {
+        window.location.href = 'login.html';
+        return;
+    }
+
+    // --- LOGIN SIMULATION ---
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            localStorage.setItem('vedimaq_auth', 'true');
+            window.location.href = 'dashboard.html';
+        });
+    }
+
     /* ==========================================================================
        MOBILE MENU LOGIC
        ========================================================================== */
@@ -71,257 +101,381 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ==========================================================================
-       QUOTE MODAL LOGIC (3 STEPS)
+       QUOTE MODAL LOGIC (REFACOR VEDIMAQ PREMIUM)
        ========================================================================== */
+    
+    // Chile Locations Data
+    const chileData = {
+        "Región de Valparaíso": ["Valparaíso", "Viña del Mar", "Concón", "Quilpué", "Villa Alemana", "San Antonio"],
+        "Región Metropolitana": ["Santiago", "Las Condes", "Maipú", "Puente Alto", "Quilicura", "Colina"],
+        "Región de Antofagasta": ["Antofagasta", "Calama", "Tocopilla", "Mejillones"],
+        "Región del Biobío": ["Concepción", "Talcahuano", "Coronel", "Hualpén"]
+    };
+
     const quoteOverlay = document.getElementById('quoteOverlay');
     const quoteDrawer = document.getElementById('quoteDrawer');
     const closeDrawerBtn = document.getElementById('closeDrawer');
     const btnCancelDrawer = document.getElementById('btnCancelDrawer');
     const modalTitle = document.getElementById('modalTitle');
     
-    // Step Elements
-    const step1Content = document.getElementById('step1Content');
-    const step2Content = document.getElementById('step2Content');
-    const step3Content = document.getElementById('step3Content');
-    const stepInd1 = document.getElementById('stepIndicator1');
-    const stepInd2 = document.getElementById('stepIndicator2');
-    const stepInd3 = document.getElementById('stepIndicator3');
+    // Step Containers
+    const steps = [
+        document.getElementById('step1Content'),
+        document.getElementById('step2Content'),
+        document.getElementById('step3Content')
+    ];
+    const stepIndicators = [
+        document.getElementById('stepIndicator1'),
+        document.getElementById('stepIndicator2'),
+        document.getElementById('stepIndicator3')
+    ];
 
-    // Buttons
-    const btnNextStep = document.getElementById('btnNextStep');
-    const btnPrevStep = document.getElementById('btnPrevStep');
-    const btnSubmitFinal = document.getElementById('btnSubmitFinal');
-    const btnFinishModal = document.getElementById('btnFinishModal');
+    // Form Inputs & Controls
+    const tabCompra = document.getElementById('tabCompra');
+    const tabArriendo = document.getElementById('tabArriendo');
+    const arriendoFields = document.getElementById('arriendoFields');
+    const formType = document.getElementById('formType'); // 'compra' or 'arriendo'
+    
+    const inRegion = document.getElementById('inRegion');
+    const inComuna = document.getElementById('inComuna');
+    const inFechaIni = document.getElementById('inFechaIni');
+    const inFechaFin = document.getElementById('inFechaFin');
+    const durationBadge = document.getElementById('durationBadge');
+    const daysCount = document.getElementById('daysCount');
 
-    // Display Elements
+    // Review Elements
+    const rvModeBadge = document.getElementById('rvModeBadge');
+    const rvNombre = document.getElementById('rvNombre');
+    const rvEmail = document.getElementById('rvEmail');
+    const rvTel = document.getElementById('rvTel');
+    const rvRut = document.getElementById('rvRut');
+    const rvArriendoSection = document.getElementById('rvArriendoSection');
+    const rvUbicacion = document.getElementById('rvUbicacion');
+    const rvFechas = document.getElementById('rvFechas');
+    const rvDuracion = document.getElementById('rvDuracion');
+    const rvEquipo = document.getElementById('rvEquipo');
+    const rvPrecio = document.getElementById('rvPrecio');
+
+    const csSubtotal = document.getElementById('csSubtotal');
+    const csIva = document.getElementById('csIva');
+    const csTotal = document.getElementById('csTotal');
+
+    // Showcase Elements
+    const mainReviewImg = document.getElementById('mainReviewImg');
+    const reviewThumbs = document.getElementById('reviewThumbs');
+    
+    // Step 1 Summary Card Elements
     const dCategory = document.getElementById('dCategory');
     const dProductName = document.getElementById('dProductName');
     const dProductPrice = document.getElementById('dProductPrice');
     const sImage = document.getElementById('sImage');
-    const sServiceType = document.getElementById('sServiceType');
+    const sThumbs = document.getElementById('sThumbs');
+    const sServiceBadge = document.getElementById('sServiceBadge');
+    const sServiceType = document.getElementById('sServiceType'); // Fallback for old refs
+
+    // State
+    let currentStep = 1;
+    let selectedProduct = {
+        name: '',
+        category: '',
+        price: 0,
+        priceStr: '',
+        img: '',
+        thumbs: []
+    };
+
+    // Initialize Regions
+    if (inRegion) {
+        Object.keys(chileData).forEach(reg => {
+            const opt = document.createElement('option');
+            opt.value = reg;
+            opt.textContent = reg;
+            inRegion.appendChild(opt);
+        });
+
+        inRegion.addEventListener('change', () => {
+            inComuna.innerHTML = '<option value="">Selecciona Comuna</option>';
+            if (inRegion.value) {
+                inComuna.disabled = false;
+                chileData[inRegion.value].forEach(com => {
+                    const opt = document.createElement('option');
+                    opt.value = com;
+                    opt.textContent = com;
+                    inComuna.appendChild(opt);
+                });
+            } else {
+                inComuna.disabled = true;
+            }
+        });
+    }
+
+    const setMode = (mode) => {
+        if (mode === 'arriendo') {
+            if (tabArriendo) tabArriendo.classList.add('active');
+            if (tabCompra) tabCompra.classList.remove('active');
+            if (arriendoFields) arriendoFields.classList.remove('hidden');
+            if (formType && formType.tagName !== 'SELECT') formType.value = 'arriendo';
+            if (sServiceBadge) sServiceBadge.textContent = 'SERVICIO: ARRIENDO';
+            if (sServiceType) sServiceType.textContent = 'SERVICIO: ARRIENDO';
+        } else {
+            if (tabCompra) tabCompra.classList.add('active');
+            if (tabArriendo) tabArriendo.classList.remove('active');
+            if (arriendoFields) arriendoFields.classList.add('hidden');
+            if (formType && formType.tagName !== 'SELECT') formType.value = 'compra';
+            if (sServiceBadge) sServiceBadge.textContent = 'SERVICIO: COMPRA';
+            if (sServiceType) sServiceType.textContent = 'SERVICIO: COMPRA';
+        }
+    };
+
+    if (tabCompra) tabCompra.addEventListener('click', () => setMode('compra'));
+    if (tabArriendo) tabArriendo.addEventListener('click', () => setMode('arriendo'));
     
-    // Form Inputs
-    const inNombre = document.getElementById('inNombre');
-    const inRut = document.getElementById('inRut');
-    const inEmail = document.getElementById('inEmail');
-    const inTel = document.getElementById('inTel');
-    const inUbicacion = document.getElementById('inUbicacion');
-    const formType = document.getElementById('formType'); // 'compra' or 'arriendo'
+    if (formType && formType.tagName === 'SELECT') {
+        formType.addEventListener('change', (e) => setMode(e.target.value));
+        // Initialize
+        setTimeout(() => setMode(formType.value), 100);
+    }
 
-    // Review Elements
-    const rNombre = document.getElementById('rNombre');
-    const rEmail = document.getElementById('rEmail');
-    const rRut = document.getElementById('rRut');
-    const rTel = document.getElementById('rTel');
-    const rUbicacion = document.getElementById('rUbicacion');
-    const rArriendoBox = document.getElementById('rArriendoBox');
+    // Date Logic
+    const updateDuration = () => {
+        if (inFechaIni.value && inFechaFin.value) {
+            const start = new Date(inFechaIni.value);
+            const end = new Date(inFechaFin.value);
+            const diffTime = Math.abs(end - start);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+            
+            if (end >= start) {
+                durationBadge.classList.remove('hidden');
+                daysCount.textContent = diffDays;
+            } else {
+                durationBadge.classList.add('hidden');
+            }
+        }
+    };
+    if (inFechaIni) inFechaIni.addEventListener('change', updateDuration);
+    if (inFechaFin) inFechaFin.addEventListener('change', updateDuration);
 
-    // Cost Elements
-    const cSubtotal = document.getElementById('cSubtotal');
-    const cIva = document.getElementById('cIva');
-    const cTotal = document.getElementById('cTotal');
+    // Modal Navigation
+    const goToStep = (n) => {
+        currentStep = n;
+        steps.forEach((s, i) => {
+            if (s) {
+                if (i === n - 1) {
+                    s.classList.add('active');
+                    s.classList.remove('hidden');
+                    s.style.display = '';
+                } else {
+                    s.classList.remove('active');
+                    s.classList.add('hidden');
+                    s.style.display = 'none';
+                }
+            }
+        });
+        stepIndicators.forEach((ind, i) => {
+            if (ind) {
+                ind.classList.toggle('active', i === n - 1);
+                ind.classList.toggle('completed', i < n - 1);
+            }
+        });
 
-    // Success Elements
-    const sEmail = document.getElementById('sEmail');
-    const sFolio = document.getElementById('sFolio');
+        if (n === 2) populateReview();
+        if (n === 1 && modalTitle) modalTitle.textContent = "COTIZACIÓN -PASOS 1/3";
+        if (n === 2 && modalTitle) modalTitle.textContent = "COTIZACIÓN -PASOS 2/3";
+        if (n === 3 && modalTitle) modalTitle.textContent = "COTIZACIÓN -PASOS 3/3";
+    };
 
-    let currentPriceValue = 0; // Guardaremos el valor numérico del precio
+    const populateReview = () => {
+        if (rvNombre && document.getElementById('inNombre')) rvNombre.textContent = document.getElementById('inNombre').value;
+        if (rvEmail && document.getElementById('inEmail')) rvEmail.textContent = document.getElementById('inEmail').value;
+        if (rvTel && document.getElementById('inTel')) rvTel.textContent = document.getElementById('inTel').value;
+        if (rvRut && document.getElementById('inRut')) rvRut.textContent = document.getElementById('inRut').value;
+        if (rvEquipo) rvEquipo.textContent = selectedProduct.name;
+        if (rvPrecio) rvPrecio.textContent = selectedProduct.priceStr;
+        
+        if (formType) {
+            const isArriendo = formType.value === 'arriendo';
+            if (rvModeBadge) rvModeBadge.textContent = isArriendo ? 'MODO: ARRIENDO' : 'MODO: COMPRA';
+            if (rvArriendoSection) rvArriendoSection.classList.toggle('hidden', !isArriendo);
 
-    // Helper: Formatear moneda (CLP)
-    const formatCurrency = (val) => new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP' }).format(val);
+            if (isArriendo) {
+                if (rvUbicacion && inComuna && inRegion && document.getElementById('inDireccion')) {
+                    rvUbicacion.textContent = `${inComuna.value}, ${inRegion.value} - ${document.getElementById('inDireccion').value}`;
+                }
+                if (rvFechas && inFechaIni && inFechaFin) rvFechas.textContent = `${inFechaIni.value} al ${inFechaFin.value}`;
+                if (rvDuracion && daysCount) rvDuracion.textContent = `${daysCount.textContent} días de faena`;
+            }
+        }
 
-    // Helper: Extraer números de un string "$ 33.800.000" -> 33800000
+        // Costs
+        const formatCLP = (v) => new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP' }).format(v);
+        const sub = selectedProduct.price;
+        const iva = sub * 0.19;
+        const total = sub + iva;
+
+        if (csSubtotal) csSubtotal.textContent = sub > 0 ? formatCLP(sub) : 'A convenir';
+        if (csIva) csIva.textContent = sub > 0 ? formatCLP(iva) : '---';
+        if (csTotal) csTotal.textContent = sub > 0 ? formatCLP(total) : 'A convenir';
+
+        // Gallery
+        if (mainReviewImg) mainReviewImg.src = selectedProduct.img;
+        if (reviewThumbs) {
+            reviewThumbs.innerHTML = '';
+            const allPhotos = [selectedProduct.img, ...selectedProduct.thumbs];
+            allPhotos.forEach((src, idx) => {
+                if (src && !src.includes('undefined')) {
+                    const thumb = document.createElement('div');
+                    thumb.className = `thumb-item ${idx === 0 ? 'active' : ''}`;
+                    thumb.innerHTML = `<img src="${src}" alt="Thumb">`;
+                    thumb.onclick = () => {
+                        if (mainReviewImg) mainReviewImg.src = src;
+                        document.querySelectorAll('.thumb-item').forEach(t => t.classList.remove('active'));
+                        thumb.classList.add('active');
+                    };
+                    reviewThumbs.appendChild(thumb);
+                }
+            });
+        }
+    };
+
+    // Form Validation
+    const validateStep1 = () => {
+        const required = ['inNombre', 'inRut', 'inEmail', 'inTel'];
+        if (formType && formType.value === 'arriendo') {
+            required.push('inRegion', 'inComuna', 'inDireccion', 'inFechaIni', 'inFechaFin');
+        }
+        
+        for (const id of required) {
+            const el = document.getElementById(id);
+            if (el && !el.value) {
+                alert(`Por favor, completa todos los campos obligatorios.`);
+                el.focus();
+                return false;
+            }
+        }
+        return true;
+    };
+
+    // Public API for opening
+    window.openQuoteModal = (product) => {
+        selectedProduct = {
+            ...product,
+            thumbs: product.thumbs || ['img-vedimaq/grid-bg.png', 'img-vedimaq/maquinaria-dibujo.png', 'img-vedimaq/vedimaq-favicon.png'] // Mock thumbs
+        };
+
+        // Populate Step 1 Card
+        if (dCategory) dCategory.textContent = product.category || "EQUIPO INDUSTRIAL";
+        if (dProductName) dProductName.textContent = product.name;
+        if (dProductPrice) dProductPrice.textContent = product.priceStr;
+        if (sImage) sImage.src = product.img;
+
+        // Step 1 Thumbs
+        if (sThumbs) {
+            sThumbs.innerHTML = '';
+            const allPhotos = [product.img, ...selectedProduct.thumbs];
+            allPhotos.forEach((src, idx) => {
+                if (src && !src.includes('undefined')) {
+                    const img = document.createElement('img');
+                    img.src = src;
+                    img.className = `qpc-thumb ${idx === 0 ? 'active' : ''}`;
+                    img.onclick = () => {
+                        if (sImage) sImage.src = src;
+                        sThumbs.querySelectorAll('.qpc-thumb').forEach(t => t.classList.remove('active'));
+                        img.classList.add('active');
+                    };
+                    sThumbs.appendChild(img);
+                }
+            });
+        }
+
+        goToStep(1);
+        quoteOverlay.classList.add('active');
+        quoteDrawer.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    };
+
+    const closeQuoteModal = () => {
+        quoteOverlay.classList.remove('active');
+        quoteDrawer.classList.remove('active');
+        document.body.style.overflow = '';
+    };
+
+    if (closeDrawerBtn) closeDrawerBtn.onclick = closeQuoteModal;
+    if (quoteOverlay) quoteOverlay.onclick = closeQuoteModal;
+    if (btnCancelDrawer) btnCancelDrawer.onclick = closeQuoteModal;
+
+    if (document.getElementById('btnNextStep')) {
+        document.getElementById('btnNextStep').onclick = () => {
+            if (validateStep1()) goToStep(2);
+        };
+    }
+    if (document.getElementById('btnPrevStep')) {
+        document.getElementById('btnPrevStep').onclick = () => goToStep(1);
+    }
+    if (document.getElementById('btnSubmitFinal')) {
+        document.getElementById('btnSubmitFinal').onclick = () => {
+            document.getElementById('btnSubmitFinal').innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Procesando...';
+            setTimeout(() => {
+                const sEmail = document.getElementById('sEmail');
+                const inEmail = document.getElementById('inEmail');
+                if (sEmail && inEmail) sEmail.textContent = inEmail.value;
+
+                goToStep(3);
+                document.getElementById('btnSubmitFinal').innerHTML = 'Confirmar y Enviar <i class="fa-solid fa-paper-plane"></i>';
+                
+                // Configurar WhatsApp Button
+                const btnWhatsApp = document.getElementById('btnWhatsApp');
+                if (btnWhatsApp) {
+                    btnWhatsApp.style.display = 'flex';
+                    const mode = formType.value;
+                    const phone = '56998272162';
+                    const userName = document.getElementById('inNombre').value;
+                    const equipo = selectedProduct.name;
+                    const price = csTotal ? csTotal.textContent : '';
+                    const text = encodeURIComponent(`Hola Vedimaq, soy ${userName}. Me gustaría cotizar la ${mode} del equipo: ${equipo}. El valor estimado arrojado es de ${price}. Por favor, contáctenme.`);
+                    
+                    btnWhatsApp.onclick = () => window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
+                }
+            }, 1200);
+        };
+    }
+    
+    // PDF Simulation
+    const btnDownloadPdf = document.getElementById('btnDownloadPdf');
+    if (btnDownloadPdf) {
+        btnDownloadPdf.onclick = () => {
+            const originalText = btnDownloadPdf.innerHTML;
+            btnDownloadPdf.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Generando PDF...';
+            setTimeout(() => {
+                btnDownloadPdf.innerHTML = '<i class="fa-solid fa-check"></i> Descarga Completa';
+                setTimeout(() => { btnDownloadPdf.innerHTML = originalText; }, 2000);
+            }, 1500);
+        };
+    }
+    if (document.getElementById('btnFinishModal')) {
+        document.getElementById('btnFinishModal').onclick = closeQuoteModal;
+    }
+
+    // Global selector for cotizar buttons
+    document.addEventListener('click', (e) => {
+        const btn = e.target.closest('.btn-cotizar-small, .btn-cotizar');
+        if (btn) {
+            e.preventDefault();
+            const card = btn.closest('.product-card') || btn.closest('.hero-content');
+            if (card) {
+                const name = card.querySelector('h3, h1')?.textContent || 'Equipo Vedimaq';
+                const priceStr = card.querySelector('.price-main, .price-value')?.textContent || 'A convenir';
+                const price = extractNumber(priceStr);
+                const img = card.querySelector('img')?.src || 'img-vedimaq/grid-bg.png';
+                
+                window.openQuoteModal({ name, price, priceStr, img });
+            }
+        }
+    });
+
     const extractNumber = (str) => {
         const num = str.replace(/[^0-9]/g, '');
         return num ? parseInt(num, 10) : 0;
     };
-
-    // Open Modal Function
-    function openDrawer(category, productName, priceStr, imgSrc) {
-        if (dCategory) dCategory.textContent = category;
-        if (dProductName) dProductName.textContent = productName;
-        if (dProductPrice) dProductPrice.textContent = priceStr;
-        if (sImage && imgSrc) sImage.src = imgSrc;
-        
-        currentPriceValue = extractNumber(priceStr);
-
-        goToStep(1); // Siempre empezar en el paso 1
-        
-        if (quoteOverlay) quoteOverlay.classList.add('active');
-        if (quoteDrawer) quoteDrawer.classList.add('active');
-        document.body.style.overflow = 'hidden'; // Evitar scroll
-    }
-
-    // Close Modal Function
-    function closeDrawer() {
-        if (quoteOverlay) quoteOverlay.classList.remove('active');
-        if (quoteDrawer) quoteDrawer.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-
-    // Navegación de Pasos
-    function goToStep(step) {
-        // Ocultar todos los contenidos
-        step1Content.style.display = 'none';
-        step2Content.style.display = 'none';
-        step3Content.style.display = 'none';
-
-        // Resetear indicadores
-        stepInd1.classList.remove('active', 'completed');
-        stepInd2.classList.remove('active', 'completed');
-        stepInd3.classList.remove('active', 'completed');
-
-        if (step === 1) {
-            modalTitle.textContent = "COTIZACIÓN · PASO 1/3";
-            step1Content.style.display = 'block';
-            stepInd1.classList.add('active');
-        } else if (step === 2) {
-            modalTitle.textContent = "COTIZACIÓN · PASO 2/3";
-            step2Content.style.display = 'block';
-            stepInd1.classList.add('completed');
-            stepInd2.classList.add('active');
-            
-            // Poblar datos
-            rNombre.textContent = inNombre.value || '---';
-            rRut.textContent = inRut.value || '---';
-            rEmail.textContent = inEmail.value || '---';
-            rTel.textContent = inTel.value || '---';
-            
-            if (formType.value === 'arriendo') {
-                rArriendoBox.style.display = 'block';
-                rUbicacion.textContent = inUbicacion.value || '---';
-            } else {
-                rArriendoBox.style.display = 'none';
-            }
-
-            // Calcular costos
-            const subtotal = currentPriceValue;
-            const iva = subtotal * 0.19;
-            const total = subtotal + iva;
-
-            cSubtotal.textContent = subtotal > 0 ? formatCurrency(subtotal) : 'A convenir';
-            cIva.textContent = subtotal > 0 ? formatCurrency(iva) : '---';
-            cTotal.textContent = subtotal > 0 ? formatCurrency(total) : 'A convenir';
-
-        } else if (step === 3) {
-            modalTitle.textContent = "COTIZACIÓN · PASO 3/3";
-            step3Content.style.display = 'block';
-            stepInd1.classList.add('completed');
-            stepInd2.classList.add('completed');
-            stepInd3.classList.add('active');
-            
-            sEmail.textContent = inEmail.value || 'tu correo';
-            sFolio.textContent = 'Folio #VM-' + (Math.floor(Math.random() * 900000) + 100000);
-        }
-    }
-
-    // Event Listeners: Navigation
-    if (closeDrawerBtn) closeDrawerBtn.addEventListener('click', closeDrawer);
-    if (btnCancelDrawer) btnCancelDrawer.addEventListener('click', closeDrawer);
-    if (quoteOverlay) quoteOverlay.addEventListener('click', closeDrawer);
-
-    if (btnNextStep) {
-        btnNextStep.addEventListener('click', () => {
-            // Validación muy básica (requeridos)
-            if(!inNombre.value || !inRut.value || !inEmail.value || !inTel.value) {
-                alert("Por favor, completa los campos requeridos (*)");
-                return;
-            }
-            goToStep(2);
-        });
-    }
-
-    if (btnPrevStep) {
-        btnPrevStep.addEventListener('click', () => goToStep(1));
-    }
-
-    if (btnSubmitFinal) {
-        btnSubmitFinal.addEventListener('click', () => {
-            // Simulamos el envío
-            btnSubmitFinal.innerHTML = 'Enviando...';
-            setTimeout(() => {
-                goToStep(3);
-                btnSubmitFinal.innerHTML = 'Enviar Solicitud <i class="fa-solid fa-arrow-right"></i>';
-            }, 800);
-        });
-    }
-
-    if (btnFinishModal) {
-        btnFinishModal.addEventListener('click', () => {
-            closeDrawer();
-            setTimeout(() => goToStep(1), 500);
-        });
-    }
-
-    // Event Listeners for all "Cotizar" buttons and full cards
-    const cotizarBtns = document.querySelectorAll('.btn-cotizar-small, .btn-cotizar');
-    const productCards = document.querySelectorAll('.product-card');
-
-    cotizarBtns.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation(); // Evitar que el click en el botón active el click en la card
-            
-            const card = e.target.closest('.product-card') || e.target.closest('.product-info') || e.target.closest('.hero-content');
-            handleQuoteClick(card, e.target);
-        });
-    });
-
-    productCards.forEach(card => {
-        card.style.cursor = 'pointer'; // Asegurar feedback visual
-        card.addEventListener('click', (e) => {
-            // Si el click no fue directamente en el botón (que ya tiene su stopPropagation)
-            handleQuoteClick(card, card);
-        });
-    });
-
-    function handleQuoteClick(card, triggerEl) {
-        let category = "EQUIPO INDUSTRIAL";
-        let productName = "Maquinaria Seleccionada";
-        let priceStr = "Consultar precio";
-        let imgSrc = "img-vedimaq/grid-bg.png"; // Fallback
-        
-        if (card) {
-            const catEl = card.querySelector('.p-category');
-            const nameEl = card.querySelector('h3') || card.querySelector('h1');
-            const priceEl = card.querySelector('.price') || card.querySelector('.price-value') || card.querySelector('.price-main');
-            const imgEl = card.querySelector('img');
-            
-            if (catEl) category = catEl.textContent;
-            if (nameEl) productName = nameEl.textContent;
-            if (priceEl) priceStr = priceEl.textContent;
-            if (imgEl && imgEl.src) imgSrc = imgEl.src;
-        }
-
-        openDrawer(category, productName, priceStr, imgSrc);
-    }
-
-    /* ==========================================================================
-       TABS LOGIC (COMPRA VS ARRIENDO)
-       ========================================================================== */
-    const tabCompra = document.getElementById('tabCompra');
-    const tabArriendo = document.getElementById('tabArriendo');
-    const arriendoFields = document.getElementById('arriendoFields');
-
-    if (tabCompra && tabArriendo) {
-        tabCompra.addEventListener('click', () => {
-            tabCompra.classList.add('active');
-            tabArriendo.classList.remove('active');
-            
-            if (arriendoFields) arriendoFields.style.display = 'none';
-            if (sServiceType) sServiceType.textContent = 'SERVICIO: COMPRA';
-            if (formType) formType.value = 'compra';
-        });
-
-        tabArriendo.addEventListener('click', () => {
-            tabArriendo.classList.add('active');
-            tabCompra.classList.remove('active');
-            
-            if (arriendoFields) arriendoFields.style.display = 'block';
-            if (sServiceType) sServiceType.textContent = 'SERVICIO: ARRIENDO';
-            if (formType) formType.value = 'arriendo';
-        });
-    }
 
     /* ==========================================================================
        MAINTENANCE FORM LOGIC (INDEX3.HTML)
@@ -339,10 +493,9 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> ENVIANDO...';
             
             setTimeout(() => {
+                localStorage.setItem('vedimaq_has_maint', 'true');
                 alert('¡Solicitud de mantenimiento enviada con éxito! Un especialista se contactará con usted en menos de 2 horas.');
-                maintForm.reset();
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = originalContent;
+                window.location.href = 'dashboard.html';
             }, 1500);
         });
     }
@@ -479,3 +632,130 @@ function showPbStep(stepNum) {
     // Scroll al inicio del formulario para mejor UX
     window.scrollTo({ top: document.querySelector('.pb-stepper-container').offsetTop - 100, behavior: 'smooth' });
 }
+
+// Password Visibility Toggle
+function togglePasswordVisibility(inputId, iconId) {
+    const input = document.getElementById(inputId);
+    const icon = document.getElementById(iconId);
+    if (input && icon) {
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            input.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
+    }
+}
+
+// Global Auth Logic
+document.addEventListener('DOMContentLoaded', () => {
+    const headerAuthBtn = document.getElementById('headerAuthBtn');
+    if (headerAuthBtn) {
+        const isLoggedIn = localStorage.getItem('vedimaq_auth') === 'true';
+        if (isLoggedIn) {
+            const userNameFull = localStorage.getItem('vedimaq_user_name') || 'Usuario';
+            const firstName = userNameFull.split(' ')[0];
+            const initial = firstName.charAt(0).toUpperCase();
+
+            // Replace headerAuthBtn with dropdown structure
+            const dropdownHTML = `
+                <div class="header-user-dropdown" id="headerUserDropdown">
+                    <button class="header-user-btn" id="headerUserBtn">
+                        <div class="hu-avatar">${initial}</div>
+                        <span class="hu-name">${firstName}</span>
+                        <i class="fa-solid fa-chevron-down hu-icon"></i>
+                    </button>
+                    <div class="hu-menu" id="huMenu">
+                        <div class="hu-menu-header">
+                            <strong>${firstName}</strong>
+                        </div>
+                        <div class="hu-menu-divider"></div>
+                        <a href="dashboard.html" class="hu-menu-item">
+                            <i class="fa-regular fa-clipboard" style="color: var(--yellow);"></i> Mis publicaciones
+                        </a>
+                        <div class="hu-menu-divider"></div>
+                        <a href="#" class="hu-menu-item hu-logout" id="huLogoutBtn">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i> Cerrar sesión
+                        </a>
+                    </div>
+                </div>
+            `;
+            headerAuthBtn.outerHTML = dropdownHTML;
+
+            // Add event listeners for dropdown
+            const btn = document.getElementById('headerUserBtn');
+            const menu = document.getElementById('huMenu');
+            if (btn && menu) {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    menu.classList.toggle('active');
+                });
+                document.addEventListener('click', (e) => {
+                    if (!btn.contains(e.target) && !menu.contains(e.target)) {
+                        menu.classList.remove('active');
+                    }
+                });
+            }
+
+            // Redirect 'Vender' / 'Publica tu máquina' to vender-auth.html for logged users
+            const publishLinks = document.querySelectorAll('a[href="login.html"]');
+            publishLinks.forEach(link => {
+                link.href = 'vender-auth.html';
+            });
+
+            // Logout from header
+            const logoutBtn = document.getElementById('huLogoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    localStorage.removeItem('vedimaq_auth');
+                    localStorage.removeItem('vedimaq_user_name');
+                    localStorage.removeItem('vedimaq_user_email');
+                    window.location.href = 'index.html';
+                });
+            }
+
+        } else {
+            headerAuthBtn.innerHTML = '<i class="fa-regular fa-user"></i> Ingresar';
+            headerAuthBtn.href = 'login.html';
+        }
+    }
+});
+
+// Smooth Scrolling and Hash Navigation Logic
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Cross-page navigation: Wait for load, then smooth scroll to hash
+    if (window.location.hash) {
+        // Prevent default native jump by scrolling to top initially
+        window.scrollTo(0, 0);
+        setTimeout(() => {
+            const target = document.querySelector(window.location.hash);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }, 100);
+    }
+
+    // 2. Same-page smooth scroll for header links
+    const hashLinks = document.querySelectorAll('a[href^="index.html#"], a[href^="#"]');
+    hashLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            const targetId = href.includes('#') ? href.split('#')[1] : null;
+            
+            if (targetId) {
+                const targetElement = document.getElementById(targetId);
+                // Si estamos en la misma página (ej. en el Home) y el elemento existe
+                if (targetElement) {
+                    e.preventDefault();
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    history.pushState(null, null, '#' + targetId);
+                }
+                // Si no existe (estamos en otra página), navegaremos normalmente a index.html#id
+            }
+        });
+    });
+});

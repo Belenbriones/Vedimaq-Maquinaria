@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="icon" type="image/x-icon" href="img-vedimaq/V-img.vedimac(1).png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil — Vedimaq</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body style="background-color: #f6f6f6;">
+<header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="img-vedimaq/Vedimaq.logo-original.png" alt="Vedimaq Logo">
+                </a>
+            </div>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index2.html">Maquinarias</a></li>
+                <li><a href="index3.html">Mantenimiento</a></li>
+                <li><a href="#nosotros">Quiénes somos</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+                <li><a href="login.html">Publica tu máquina</a></li>
+            </ul>
+
+            <div class="header-actions">
+                <a href="#" class="btn-outline auth-btn" id="headerAuthBtn"><i class="fa-regular fa-user"></i> Ingresar</a>
+                <div class="search-container" id="searchContainer">
+                    <input type="text" class="search-input" id="searchInput" placeholder="Buscar maquinaria...">
+                    <button type="button" class="search-icon-btn" id="searchIconBtn"><i
+                            class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- DASHBOARD MAIN -->
+    <main class="dashboard-main-container">
+        <!-- USER PROFILE BANNER -->
+        <section class="profile-banner">
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <i class="fa-regular fa-building"></i>
+                    <div class="avatar-edit"><i class="fa-solid fa-pen"></i></div>
+                </div>
+                <div class="profile-title">
+                    <h2 id="dashWelcomeTitle">Bienvenido Usuario</h2>
+                    <p>Administra tu información de contacto y empresa</p>
+                </div>
+            </div>
+            <div class="profile-divider"></div>
+            <div class="profile-details">
+                <div class="pd-item">
+                    <span class="pd-label">NOMBRE COMPLETO</span>
+                    <div class="pd-val-row">
+                        <span class="pd-val" id="dashNameVal">Juan Carlos Valdivia</span>
+                        <i class="fa-solid fa-pen edit-icon"></i>
+                    </div>
+                </div>
+                <div class="pd-item">
+                    <span class="pd-label">EMPRESA</span>
+                    <div class="pd-val-row">
+                        <span class="pd-val">Vedimaq Construcciones Ltda.</span>
+                        <i class="fa-solid fa-pen edit-icon"></i>
+                    </div>
+                </div>
+                <div class="pd-item">
+                    <span class="pd-label">EMAIL DE CONTACTO</span>
+                    <div class="pd-val-row">
+                        <span class="pd-val" id="dashEmailVal">j.valdivia@vedimaq.cl</span>
+                        <i class="fa-solid fa-pen edit-icon"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <button id="btnLogout" class="btn-logout-floating" title="Cerrar Sesión">
+                <i class="fa-solid fa-right-from-bracket"></i>
+            </button>
+        </section>
+
+        <!-- MAQUINARIAS SECTION -->
+        <section class="maquinarias-section">
+            <div class="mq-header">
+                <div class="mq-title-box">
+                    <h2>Mis Maquinarias</h2>
+                    <p>Gestiona tu flota industrial y monitorea el estado de tus ventas.</p>
+                </div>
+                <div class="mq-actions">
+                    <a href="index3.html" class="btn-mq-gray" style="text-decoration: none;"><i class="fa-solid fa-plus"></i> mantenimiento</a>
+                    <a href="login.html" class="btn-mq-yellow"><i class="fa-solid fa-plus"></i> Publicar nueva máquina</a>
+                </div>
+            </div>
+
+            <div class="mq-grid">
+                <!-- Card 1 -->
+                <div class="mq-card">
+                    <div class="mq-img">
+                        <img src="img-vedimaq/grid-bg.png" alt="Máquina">
+                    </div>
+                    <div class="mq-info">
+                        <div class="mq-card-header">
+                            <h3>Excavadora Komatsu PC210</h3>
+                            <span class="mq-id">ID:<br>#44021</span>
+                        </div>
+                        <div class="mq-specs">
+                            <span><i class="fa-regular fa-clock"></i> 1,250 hrs</span>
+                            <span><i class="fa-regular fa-calendar"></i> 2021</span>
+                        </div>
+                        
+                        <div class="mq-progress-bar">
+                            <div class="pb-track"></div>
+                            <div class="pb-fill" style="width: 50%;"></div>
+                            
+                            <div class="pb-nodes">
+                                <div class="pb-node completed">
+                                    <div class="node-circle"><i class="fa-solid fa-check"></i></div>
+                                    <span>Revisión</span>
+                                </div>
+                                <div class="pb-node active">
+                                    <div class="node-circle"></div>
+                                    <span>Publicado</span>
+                                </div>
+                                <div class="pb-node">
+                                    <div class="node-circle"></div>
+                                    <span>Vendido</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="mq-card">
+                    <div class="mq-img">
+                        <img src="img-vedimaq/grid-bg.png" alt="Máquina">
+                    </div>
+                    <div class="mq-info">
+                        <div class="mq-card-header">
+                            <h3>Cargador Frontal CAT 950</h3>
+                            <span class="mq-id" style="background:#ddd;">ID:<br>#44025</span>
+                        </div>
+                        <div class="mq-specs">
+                            <span><i class="fa-regular fa-clock"></i> 3,400 hrs</span>
+                            <span><i class="fa-regular fa-calendar"></i> 2019</span>
+                        </div>
+                        
+                        <div class="mq-progress-bar">
+                            <div class="pb-track"></div>
+                            <div class="pb-fill" style="width: 0%;"></div>
+                            
+                            <div class="pb-nodes">
+                                <div class="pb-node active">
+                                    <div class="node-circle"></div>
+                                    <span style="font-weight:700; color:var(--dark);">Revisión Técnica</span>
+                                </div>
+                                <div class="pb-node">
+                                    <div class="node-circle"></div>
+                                    <span>Publicado</span>
+                                </div>
+                                <div class="pb-node">
+                                    <div class="node-circle"></div>
+                                    <span>Vendido</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="mq-card">
+                    <div class="mq-img">
+                        <img src="img-vedimaq/grid-bg.png" alt="Máquina">
+                    </div>
+                    <div class="mq-info">
+                        <div class="mq-card-header">
+                            <h3>Grúa Horquilla Hyster 5T</h3>
+                            <span class="mq-tag-green">Vendido</span>
+                        </div>
+                        <div class="mq-specs">
+                            <span><i class="fa-regular fa-clock"></i> 850 hrs</span>
+                            <span><i class="fa-regular fa-calendar"></i> 2022</span>
+                        </div>
+                        
+                        <div class="mq-progress-bar">
+                            <div class="pb-track"></div>
+                            <div class="pb-fill" style="width: 100%;"></div>
+                            
+                            <div class="pb-nodes">
+                                <div class="pb-node completed">
+                                    <div class="node-circle"><i class="fa-solid fa-check"></i></div>
+                                    <span>Revisión</span>
+                                </div>
+                                <div class="pb-node completed">
+                                    <div class="node-circle"><i class="fa-solid fa-check"></i></div>
+                                    <span>Publicado</span>
+                                </div>
+                                <div class="pb-node active">
+                                    <div class="node-circle"></div>
+                                    <span style="font-weight:700; color:var(--dark);">Vendido</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add New Card -->
+                <a href="index1.html" class="mq-card-add">
+                    <div class="add-circle"><i class="fa-solid fa-plus"></i></div>
+                    <h3>Publicar Nueva</h3>
+                    <p>Carga los datos de tu maquinaria</p>
+                </a>
+            </div>
+        </section>
+    </main>
+
+<footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <img src="img-vedimaq/vedimaq.logo-original.png" alt="Vedimaq Logo" class="footer-logo">
+                <p>Especialistas en la venta y arriendo de maquinaria pesada para todo tipo de proyectos industriales y
+                    de construcción en Chile.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-links-container">
+                <div class="footer-column">
+                    <h4>CATEGORÍAS</h4>
+                    <ul>
+                        <li><a href="#">Construcción</a></li>
+                        <li><a href="#">Mineria</a></li>
+                        <li><a href="#">Portuario</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>COMPAÑÍA</h4>
+                    <ul>
+                        <li><a href="#">Sobre Nosotros</a></li>
+                        <li><a href="index3.html">Servicio Técnico</a></li>
+                        <li><a href="#">Casos de Éxito</a></li>
+                        <li><a href="#">Términos y Condiciones</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column contact-column">
+                    <h4>CONTACTO</h4>
+                    <ul>
+                        <li><i class="fa-solid fa-location-dot"></i> Avenida Principal 1234,<br>Concón, Valparaíso,
+                            Chile</li>
+                        <li><i class="fa-solid fa-phone"></i> +56 9 9827 2162</li>
+                        <li><i class="fa-solid fa-envelope"></i> contacto@vedimaq.cl</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Vedimaq SpA. Todos los derechos reservados.</p>
+            <p>Hecho en Chile - RUT 77.858.999-0</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <!-- Logout Logic specifically for Dashboard -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnLogout = document.getElementById('btnLogout');
+            if (btnLogout) {
+                btnLogout.addEventListener('click', () => {
+                    localStorage.removeItem('vedimaq_auth');
+                    localStorage.removeItem('vedimaq_user_name');
+                    localStorage.removeItem('vedimaq_user_email');
+                    window.location.href = 'index.html';
+                });
+            }
+
+            // Load dynamic data
+            const userName = localStorage.getItem('vedimaq_user_name');
+            const userEmail = localStorage.getItem('vedimaq_user_email');
+            if (userName) {
+                document.getElementById('dashWelcomeTitle').innerText = 'Bienvenido ' + userName.split(' ')[0];
+                document.getElementById('dashNameVal').innerText = userName;
+            }
+            if (userEmail) {
+                document.getElementById('dashEmailVal').innerText = userEmail;
+            }
+        });
+    </script>
+</body>
+</html>
+
